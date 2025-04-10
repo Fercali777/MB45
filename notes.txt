@@ -1,0 +1,7 @@
+User (name, email, phone number, password, address, city, country, postalCode,  role: buyer or seller)
+Product (name, Description, price, category, stock, images, material, created at, updated at, dimensions: width, height, depth,)
+
+Y las tablas que relacionan usuario y producto son:
+- Shopping car
+- likes
+- Comments
