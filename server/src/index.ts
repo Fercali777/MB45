@@ -4,7 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 // Importar rutas
-// import userRoutes from '../routes/userRoutes';
+ import userRoutes from './routes/userRoutes';
 // import productRoutes from '../routes/productRoutes';
 
 dotenv.config();  // Cargar las variables de entorno
@@ -22,7 +22,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // Usar las rutas de la API
-// app.use('/api/users', userRoutes);   // Ruta para los usuarios
+ app.use('/api/users', userRoutes);   // Ruta para los usuarios
 // app.use('/api/products', productRoutes); // Ruta para los productos
 
 // Conectar a MongoDB Atlas
@@ -36,5 +36,3 @@ mongoose.connect(process.env.MONGO_URI as string)  // Conexión con la base de d
   .catch((err: any) => {
     console.error(' Error al conectar a MongoDB:', err);
   });
-
-
