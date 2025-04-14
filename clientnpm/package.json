@@ -9,6 +9,7 @@
     "ajv": "^6.12.6",
     "ansi-styles": "^4.3.0",
     "argparse": "^2.0.1",
+    "axios": "^1.8.4",
     "balanced-match": "^1.0.2",
     "brace-expansion": "^1.1.11",
     "braces": "^3.0.3",
@@ -118,12 +119,6 @@
     "yallist": "^3.1.1",
     "yocto-queue": "^0.1.0"
   },
-  "devDependencies": {},
-
-
-
-
-
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite",
@@ -134,5 +129,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4"
+  }
 }
