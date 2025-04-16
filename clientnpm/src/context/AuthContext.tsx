@@ -59,14 +59,14 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
         setUser(userData);
         localStorage.setItem("token", data.token);
   
-        console.log("✅ Usuario logueado:", userData);
-        console.log("🔐 Token guardado:", data.token);
+        console.log(" Usuario logueado:", userData);
+        console.log(" Token guardado:", data.token);
       } else {
-        console.error("❌ Error en login:", data.message || "Respuesta no válida");
+        console.error(" Error en login:", data.message || "Respuesta no válida");
         throw new Error(data.message || "Error en login");
       }
     } catch (err) {
-      console.error("💥 Login error:", err);
+      console.error(" Login error:", err);
     }
   };
   // 📝 Registro

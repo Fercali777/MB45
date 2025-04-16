@@ -102,7 +102,7 @@ router.get('/me', async (req: Request, res: Response) => {
           user: {
             uid: user._id,
             email: user.email,
-            displayName: user.name,
+            name: user.name,
             role: user.role,
           },
         });
