@@ -13,7 +13,7 @@ const RegisterForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/users/register', formData);
+      const response = await axios.post('http://localhost:5000/api/auth/register', formData);
       setMessage(response.data.message);
     } catch (error: any) {
       setMessage(error.response?.data?.message || 'Registration error');
