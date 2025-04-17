@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from "react-router"; 
 import { useEffect } from "react";
-import Login from "../components/Login";
-import ProfileInfo from "../components/ProfileInfo";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const AppRoutes = () => {
   const location = useLocation(); 
