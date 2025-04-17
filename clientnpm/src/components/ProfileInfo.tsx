@@ -8,7 +8,7 @@ const ProfileInfo = () => {
 
   return (
     <div>
-      <h2>AuthContext Test</h2>
+   
       {user ? (
         <div>
           <p>Nombre: {user.name}</p>

@@ -12,6 +12,7 @@
     "axios": "^1.8.4",
     "balanced-match": "^1.0.2",
     "bcryptjs": "^3.0.2",
+    "bootstrap": "^5.3.5",
     "brace-expansion": "^1.1.11",
     "braces": "^3.0.3",
     "browserslist": "^4.24.4",
