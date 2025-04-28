@@ -21,8 +21,12 @@ const RegisterForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" name="name" placeholder="Nombre" onChange={handleChange} required />
+
+
+
+    <form onSubmit={handleSubmit} >
+      <div className='grid-2-col-form'>
+<input type="text" name="name" placeholder="Nombre" onChange={handleChange} required />
       <input type="email" name="email" placeholder="Correo" onChange={handleChange} required />
       <input type="password" name="password" placeholder="Contraseña" onChange={handleChange} required />
       <input type="phone" name="phone" placeholder="Phonee" onChange={handleChange} required />
@@ -30,14 +34,50 @@ const RegisterForm = () => {
       <input type="city" name="city" placeholder="City" onChange={handleChange} required />
       <input type="country" name="country" placeholder="Country" onChange={handleChange} required />
       <input type="postCode" name="postCode" placeholder="postCode" onChange={handleChange} required />
-      <label ></label>
-         <input type="radio" id="seller" name="role" value="seller" onChange={handleChange}></input>
-         <label >Seller</label>
-         <input type="radio" id="buyer" name="role" value="buyer" onChange={handleChange}></input>
-         <label >Buyer</label><br></br>
-      <button type="submit">Registrarse</button>
-      {message && <p>{message}</p>}
-    </form>
+
+
+         
+
+
+        
+         </div>
+         <div className="flex space-bet align-items-center ">
+                <p >Seller</p>
+              
+                
+                <input type="radio" id="seller" name="role" value="seller" onChange={handleChange}></input>
+               
+                <p >Buyer</p>
+                <input type="radio" id="buyer" name="role" value="buyer" onChange={handleChange}></input>
+               
+          </div>
+          <div className="flex "></div>
+
+          <button className='button-1 bt-orange margin-b' type="submit">Register</button>
+          {message && <p>{message}</p>}
+         
+   </form>
+
+
+
+
+
+    // <form onSubmit={handleSubmit}>
+    //   <input type="text" name="name" placeholder="Nombre" onChange={handleChange} required />
+    //   <input type="email" name="email" placeholder="Correo" onChange={handleChange} required />
+    //   <input type="password" name="password" placeholder="Contraseña" onChange={handleChange} required />
+    //   <input type="phone" name="phone" placeholder="Phonee" onChange={handleChange} required />
+    //   <input type="address" name="address" placeholder="Address" onChange={handleChange} required />
+    //   <input type="city" name="city" placeholder="City" onChange={handleChange} required />
+    //   <input type="country" name="country" placeholder="Country" onChange={handleChange} required />
+    //   <input type="postCode" name="postCode" placeholder="postCode" onChange={handleChange} required />
+    //   <label ></label>
+    //      <input type="radio" id="seller" name="role" value="seller" onChange={handleChange}></input>
+    //      <label >Seller</label>
+    //      <input type="radio" id="buyer" name="role" value="buyer" onChange={handleChange}></input>
+    //      <label >Buyer</label><br></br>
+      
+    // </form>
 
   );
 };

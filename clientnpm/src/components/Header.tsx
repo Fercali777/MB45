@@ -1,4 +1,7 @@
 import { Link, useLocation } from "react-router";
+
+
+
 // import { AuthContext } from "../context/AuthContext";
 // import { useContext, useState, useEffect } from "react";
 
@@ -63,11 +66,14 @@ import { Link, useLocation } from "react-router";
 
 
 const Header = () => {
+  const location = useLocation();
+const isHome = location.pathname === "/";
   return (
     <header className="flex">
       <div className="logo">
         <Link to="/" className="logo">
-          <img src="img/logoMB45-n.png" alt="logo MB45" />
+          <img src={isHome ? "img/logoMB45-n.png" : "img/logoMB45.png"}
+            alt="logo MB45" />
         </Link>
       </div>
       <nav className="main-menu flex">

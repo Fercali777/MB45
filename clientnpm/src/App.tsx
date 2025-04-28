@@ -10,9 +10,6 @@ import ProtectedRoute from "./components/ProtectedRoute";
 // import ProtectedRoute from "./components/ProtectedRoute";
 
 
-
-
-
 function App() {
   return (
     <AuthContextProvider>
@@ -40,35 +37,6 @@ function App() {
   );
 }
 
-
-
-
-// function App() {
-//   return (
-
-//     <AuthContextProvider>
-//       <BrowserRouter>
-//         <Routes>
-//             <Route path="/" element={<AppRoutes />}>
-//             <Route path="/" element={<Home />} />
-//             {/* <Route path="/dashboard-seller" element={<DashboardSeller />} /> */}
-
-//             <Route
-//               path="/dashboard-seller"
-//               element={
-//                 <ProtectedRoute>
-//                   <DashboardSeller />
-//                 </ProtectedRoute>
-//               }
-//             /> 
-//           </Route>
-//         </Routes>
-//       </BrowserRouter>
-//     </AuthContextProvider>
-
-
-//   );
-// }
 
 export default App;
 

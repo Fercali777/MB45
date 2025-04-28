@@ -38,13 +38,12 @@ const Login = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 shadow-lg rounded-xl bg-white">
-      <h2 className="text-2xl font-semibold mb-6 text-center">Iniciar sesión</h2>
+    <div className="">
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
       <form onSubmit={handleLogin} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium">Email</label>
+          <label className="block text-sm font-medium">E-mail</label>
           <input
             type="email"
             className="w-full border px-3 py-2 rounded"
@@ -55,7 +54,7 @@ const Login = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium">Contraseña</label>
+          <label className="block text-sm font-medium">Pasword</label>
           <input
             type="password"
             className="w-full border px-3 py-2 rounded"
