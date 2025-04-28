@@ -1,4 +1,4 @@
-// import { Link, useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 // import { AuthContext } from "../context/AuthContext";
 // import { useContext, useState, useEffect } from "react";
 
@@ -64,23 +64,28 @@
 
 const Header = () => {
   return (
-<header className ="flex">
-        <div className="logo">
-          <a href="index.html" className="logo" >
-            <img src="img/logoMB45-n.png" alt="logo MB45"></img>
-          </a>
-        </div>
-        <nav className="main-menu flex">
-          <a href="fornitures.html" className="nav-item ">FURNITURES</a>
-          <a href="contact.html" className="nav-item">CONTACT</a>
-          <a href="shopping-car.html" className="nav-item">SHOPPING LIST</a>
-        </nav>
-        <nav className="right-menu flex">
-          <a href="#" title="User Profile"><img src="img/i-user.png" alt="User Profile" className="icon-main-menu" /></a>
-          <a href="shopping-car.html" title="Shopping Car"><img src="img/i-car.png" alt="Shopping Car" className="icon-main-menu"/></a>
-          <a href="contact.html" title="Contact"><img src="img/i-contact.png" alt="Contact" className="icon-main-menu"/></a>
-        </nav>
-      </header>
+    <header className="flex">
+      <div className="logo">
+        <Link to="/" className="logo">
+          <img src="img/logoMB45-n.png" alt="logo MB45" />
+        </Link>
+      </div>
+      <nav className="main-menu flex">
+        <Link to="/fornitures" className="nav-item">FURNITURES</Link>
+        <Link to="/contact" className="nav-item">CONTACT</Link>
+        <Link to="/shopping-cart" className="nav-item">SHOPPING LIST</Link>
+        <Link to="/login" className="nav-item">Login</Link>
+        <Link to="/register" className="nav-item">Register</Link>
+      </nav>
+      <nav className="right-menu flex">
+        <Link to="/profile" title="User Profile">
+          <img src="img/i-user.png" alt="User Profile" className="icon-main-menu" />
+        </Link>
+        <Link to="/shopping-cart" title="Shopping Car">
+          <img src="img/i-car.png" alt="Shopping Car" className="icon-main-menu" />
+        </Link>
+      </nav>
+    </header>
   );
 };
 

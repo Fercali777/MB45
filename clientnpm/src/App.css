@@ -65,7 +65,7 @@
   .logo img {
     width: 100%;
   }
-  main {
+  #root {
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -330,7 +330,7 @@
   }
   
   /* Grid & Flex----------------------------------------------------------------------*/
-  content {
+  .content {
     margin: 0px 15% 80px 15%;
   }
   .flex {
@@ -389,13 +389,13 @@
     header {
       flex-direction: row;
     }
-    content {
+    .content {
       margin: 0px 5% 50px 5%;
     }
   }
   /* Laptops and Small Screens ------------ */
   @media (max-width: 1025px) {
-    content {
+    .content {
       margin: 0px 5% 50px 5%;
     }
     header {
@@ -453,7 +453,7 @@
       line-height: 30px;
       margin-block-end: 20px;
     }
-    content {
+    .content {
       margin: 0px 20px 60px 20px;
     }
     header {

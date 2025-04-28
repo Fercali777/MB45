@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect, ReactNode } from "react";
 
-// 👤 Tipo de usuario personalizado (ajústalo si tu backend devuelve otros datos)
+// 👤 Tipo de usuario personalizado 
 export type AppUser = {
   _id: string;
   name: string;
@@ -13,7 +13,7 @@ export type AppUser = {
   postCode: string;
 };
 
-// 🧠 Tipo para el contexto
+// Tipo para el contexto
 type AuthContextType = {
   user: AppUser | null;
   login: (email: string, password: string) => Promise<void>;
@@ -34,14 +34,14 @@ const AuthContextInitValue: AuthContextType = {
   logout: () => {},
 };
 
-// 🧵 Crear el contexto
+//  Crear el contexto
 export const AuthContext = createContext<AuthContextType>(AuthContextInitValue);
 
-// 🏗️ Crear el proveedor de contexto
+//  Crear el proveedor de contexto
 export const AuthContextProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<AppUser | null>(null);
 
-  // 🔐 Login
+  //  Login
   const login = async (email: string, password: string) => {
     try {
       const res = await fetch("http://localhost:5000/api/auth/login", {
@@ -51,7 +51,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
       });
   
       const data = await res.json();
-      console.log("🔐 Respuesta de login:", data);
+      console.log(" Respuesta de login:", data);
   
       if (res.ok) {
         // Verifica si user viene en data.user o directamente
@@ -69,7 +69,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
       console.error(" Login error:", err);
     }
   };
-  // 📝 Registro
+  //  Registro
   const register = async (name: string, email: string, password: string, role: string) => {
     try {
       const res = await fetch("http://localhost:5000/api/auth/register", {

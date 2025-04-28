@@ -3,13 +3,16 @@ import ProfileInfo from "../components/ProfileInfo";
 
 const DashboardSeller = () => {
   return (
+
+
+    <>
+    <div className="content">
+            <h1>Profile Info</h1>
+            <ProfileInfo />
+    </div>
+  </>
     
-      <div className="row">
-        <div className="col">
-          <h2 className="text-2xl font-bold mb-4">Seller</h2>
-          <ProfileInfo />
-        </div>
-      </div>
+
    
   );
 };
