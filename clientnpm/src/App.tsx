@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import './App.css';
-import DashboardSeller from './pages/DashboardSeller';
+import Dashboard from './pages/Dashboard';
 import { AuthContextProvider } from "./context/AuthContext";
 import AppRoutes from "./routes/AppRoutes";
 import Home from "./pages/Home";
@@ -21,12 +21,12 @@ function App() {
             <Route index element={<Home />} />
             <Route path="register" element={<RegisterPage />} />
             <Route path="login" element={<LoginPage />} />
-            <Route path="profile" element={<DashboardSeller />} />
+            <Route path="profile" element={<Dashboard />} />
             <Route 
               path="dashboard-seller"
               element={
                 <ProtectedRoute>
-                  <DashboardSeller />
+                  <Dashboard />
                 </ProtectedRoute>
               }
             />
