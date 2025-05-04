@@ -11,7 +11,8 @@ const productSchema = new mongoose.Schema({
   height: { type: Number },
   depth: { type: Number },
   description: { type: String },
-  seller: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // relación con el usuario
+  image: { type: String, required: true }, 
+  seller: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
 }, { timestamps: true });
 
 export const Product = mongoose.model('Product', productSchema);

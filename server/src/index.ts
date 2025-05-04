@@ -1,11 +1,13 @@
+import dotenv from 'dotenv';
+dotenv.config();  // Cargar variables de entorno
 import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import dotenv from 'dotenv';
+
 import userRoutes from './routes/userRoutes';
 import productRoutes from './routes/productRoutes';
 
-dotenv.config();  // Cargar variables de entorno
+
 
 const app = express(); // ✅ Esta línea debe ir antes de cualquier uso de `app`
 
