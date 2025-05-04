@@ -13,15 +13,15 @@ export type AppUser = {
   postCode: string;
 };
 
-// Tipo para el contexto
+// ✅ Tipo para el contexto, incluyendo el token
 type AuthContextType = {
   user: AppUser | null;
+  token: string | null;
   login: (email: string, password: string) => Promise<void>;
   register: (name: string, email: string, password: string, role: string) => Promise<void>;
   logout: () => void;
 };
 
-// 🧱 Tipo para el proveedor de contexto
 type AuthProviderProps = {
   children: ReactNode;
 };
@@ -29,19 +29,21 @@ type AuthProviderProps = {
 // 🚧 Valor inicial del contexto
 const AuthContextInitValue: AuthContextType = {
   user: null,
-  login: async () => {}, 
+  token: null,
+  login: async () => {},
   register: async () => {},
   logout: () => {},
 };
 
-//  Crear el contexto
+// Crear el contexto
 export const AuthContext = createContext<AuthContextType>(AuthContextInitValue);
 
-//  Crear el proveedor de contexto
+// Crear el proveedor de contexto
 export const AuthContextProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<AppUser | null>(null);
+  const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
 
-  //  Login
+  // 🔐 Login
   const login = async (email: string, password: string) => {
     try {
       const res = await fetch("http://localhost:5000/api/auth/login", {
@@ -49,27 +51,26 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-  
+
       const data = await res.json();
-      console.log(" Respuesta de login:", data);
-  
+      console.log("Respuesta de login:", data);
+
       if (res.ok) {
-        // Verifica si user viene en data.user o directamente
         const userData = data.user || data;
         setUser(userData);
         localStorage.setItem("token", data.token);
-  
-        console.log(" Usuario logueado:", userData);
-        console.log(" Token guardado:", data.token);
+        setToken(data.token);
+        console.log("Usuario logueado:", userData);
+        console.log("Token guardado:", data.token);
       } else {
-        console.error(" Error en login:", data.message || "Respuesta no válida");
         throw new Error(data.message || "Error en login");
       }
     } catch (err) {
-      console.error(" Login error:", err);
+      console.error("Login error:", err);
     }
   };
-  //  Registro
+
+  // 📝 Registro
   const register = async (name: string, email: string, password: string, role: string) => {
     try {
       const res = await fetch("http://localhost:5000/api/auth/register", {
@@ -83,6 +84,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
       if (res.ok) {
         setUser(data.user);
         localStorage.setItem("token", data.token);
+        setToken(data.token);
       } else {
         throw new Error(data.message || "Error en registro");
       }
@@ -94,30 +96,32 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
   // 🚪 Logout
   const logout = () => {
     setUser(null);
+    setToken(null);
     localStorage.removeItem("token");
   };
 
   // 🔄 Mantener sesión iniciada tras recargar
   useEffect(() => {
     const fetchUser = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) {
+      const storedToken = localStorage.getItem("token");
+      if (!storedToken) {
         console.log("No hay token en localStorage");
         return;
       }
-  
+
       try {
         const res = await fetch("http://localhost:5000/api/auth/me", {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${storedToken}`,
           },
         });
-  
+
         const data = await res.json();
-  
+
         if (res.ok) {
-          console.log("Usuario recuperado:", data.user); // Verifica que recibes el usuario
-          setUser(data.user); // Actualiza el estado del usuario
+          console.log("Usuario recuperado:", data.user);
+          setUser(data.user);
+          setToken(storedToken);
         } else {
           console.warn("Token inválido o expirado");
           logout();
@@ -127,12 +131,12 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
         logout();
       }
     };
-  
+
     fetchUser();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout }}>
+    <AuthContext.Provider value={{ user, token, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

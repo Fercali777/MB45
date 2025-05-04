@@ -21,7 +21,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="register" element={<RegisterPage />} />
             <Route path="login" element={<LoginPage />} />
-            <Route path="profile" element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
             <Route 
               path="dashboard-seller"
               element={

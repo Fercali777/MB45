@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 
-// 🔐 Registro
+//  Registro
 router.post('/register', async (req: Request, res: Response) => {
   const { name, email, password, phone, address, city, country, postCode, role } = req.body;
 
@@ -45,7 +45,7 @@ else {
   }
 });
 
-// 🔑 Login
+//  Login
 router.post('/login', async (req: Request, res: Response) => {
   const { email, password } = req.body;
 

@@ -20,9 +20,10 @@ const isHome = location.pathname === "/";
         <Link to="/shopping-cart" className="nav-item">SHOPPING LIST</Link>
         <Link to="/login" className="nav-item">Login</Link>
         <Link to="/register" className="nav-item">Register</Link>
+        <Link to="/Dashboard" className="nav-item">Dashboard</Link> 
       </nav>
       <nav className="right-menu flex">
-        <Link to="/profile" title="User Profile">
+        <Link to="/Dashboard" className="nav-item">
           <img src="img/i-user.png" alt="User Profile" className="icon-main-menu" />
         </Link>
         <Link to="/shopping-cart" title="Shopping Car">

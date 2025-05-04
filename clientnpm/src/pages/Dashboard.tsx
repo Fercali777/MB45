@@ -1,5 +1,5 @@
 import ProfileInfo from "../components/ProfileInfo";
-
+import ProductForm from "../components/ProductForm";
 
 const Dashboard = () => {
   return (
@@ -16,6 +16,7 @@ const Dashboard = () => {
               <div className="col-lg-8 col-sm-12">
 
               <h1>formular</h1>
+              <ProductForm />
               </div>
         </div>
     </div>

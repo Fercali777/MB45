@@ -3,37 +3,40 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes';
+import productRoutes from './routes/productRoutes';
 
-dotenv.config();  // Chage variables
+dotenv.config();  // Cargar variables de entorno
 
-const app = express();
+const app = express(); // ✅ Esta línea debe ir antes de cualquier uso de `app`
+
 const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(express.json());
 
-// Core conect with frontend
+// CORS para permitir conexión con frontend
 app.use(cors({
-  origin: 'http://localhost:5173', // Vite
+  origin: 'http://localhost:5173',
   credentials: true,
 }));
 
-// Routes
+// Rutas
 app.use('/api/auth', userRoutes);
+app.use('/api/products', productRoutes);
 
 // Ruta de prueba
 app.get('/', (req: Request, res: Response) => {
-  res.send('Servidor funcionando ');
+  res.send('Server Working');
 });
 
-// Conectar a MongoDB Atlas
-mongoose.connect(process.env.MONGO_URI as string)  // Conexión con la base de datos
+// Conexión con MongoDB
+mongoose.connect(process.env.MONGO_URI as string)
   .then(() => {
-    console.log(' Conectado a MongoDB Atlas');
+    console.log('Conectado a MongoDB Atlas');
     app.listen(PORT, () => {
-      console.log(` Servidor corriendo en http://localhost:${PORT}`);
+      console.log(`Servidor corriendo en http://localhost:${PORT}`);
     });
   })
   .catch((err: any) => {
-    console.error(' Error al conectar a MongoDB:', err);
+    console.error('Error al conectar con MongoDB:', err);
   });
