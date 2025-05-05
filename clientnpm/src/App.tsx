@@ -5,6 +5,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 import AppRoutes from "./routes/AppRoutes";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
+import Furnitures from "./pages/Furnitures";
 import RegisterPage from "./pages/RegisterPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 // import ProtectedRoute from "./components/ProtectedRoute";
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<AppRoutes />}>
             {/* Dentro del layout */}
             <Route index element={<Home />} />
+            <Route path="furnitures" element={<Furnitures />} />
             <Route path="register" element={<RegisterPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="dashboard" element={<Dashboard />} />

@@ -15,7 +15,7 @@ const isHome = location.pathname === "/";
         </Link>
       </div>
       <nav className="main-menu flex">
-        <Link to="/fornitures" className="nav-item">FURNITURES</Link>
+        <Link to="/furnitures" className="nav-item">FURNITURES</Link>
         <Link to="/contact" className="nav-item">CONTACT</Link>
         <Link to="/shopping-cart" className="nav-item">SHOPPING LIST</Link>
         <Link to="/login" className="nav-item">Login</Link>

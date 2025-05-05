@@ -178,6 +178,7 @@
     min-height: 40px;
     border: none;
   }
+
   .buttonDash{
     box-sizing: border-box;
     margin-right: 10px;
@@ -196,7 +197,7 @@
     min-width: 103px; 
   }
   .button-like {
-    background-image: url("web/i-heart.png");
+    background-image: url("/img/i-heart.png");
     background-size: 15px;
     background-position: center;
     background-repeat: no-repeat;
@@ -516,10 +517,7 @@ margin-top: -150px;
       display: flex;
       flex-direction: column;
     }
-    .button-1 {
-      margin-bottom: 10px;
-      text-align: center;
-    }
+
     .grid-2-col {
       display: grid;
       grid-template-columns: 1fr;

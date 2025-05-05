@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { Product } from "../models/Product"; // ajusta el path si es necesario
+import { Product } from "../models/Product";
 import { JwtPayload } from "jsonwebtoken";
 
 interface AuthenticatedRequest extends Request {
-  user?: JwtPayload | string; // o el tipo real de tu token
+  user?: JwtPayload | string; 
 }
 
 export const addProduct = async (req: AuthenticatedRequest, res: Response) => {
