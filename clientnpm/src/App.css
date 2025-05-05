@@ -178,11 +178,23 @@
     min-height: 40px;
     border: none;
   }
+  .buttonDash{
+    box-sizing: border-box;
+    margin-right: 10px;
+    padding: 10px 25px 10px 25px;
+    font-family: Consolas;
+    text-decoration: none;
+    margin-bottom: 24px;
+    min-height: 40px;
+    border: none;
+    text-align: left;
+    background-image:   url("/img/nar.png") ;
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+  }
   .logout-button {
     min-width: 103px; 
-
   }
-  
   .button-like {
     background-image: url("web/i-heart.png");
     background-size: 15px;
@@ -198,7 +210,11 @@
     background-color: #ff5b40;
     color: white;
   }
-  
+  .bt-cream {
+    background-color: #F2EAB3;
+    color: #59636A;
+  }
+
   /* Elements-------------------------------------------------------------------------*/
   
   .slider-text hr {
@@ -350,8 +366,6 @@ margin-top: -150px;
   .space-bet {
     justify-content: space-between;
   }
-  
-
   .flex-start {
     justify-content: flex-start;
   }
@@ -363,6 +377,9 @@ margin-top: -150px;
 }
   .gap1 {
     gap: 20px;
+  }
+  .e3in1 input {
+  width: 35%;
   }
   .grid-2-col {
     display: grid;

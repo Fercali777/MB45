@@ -66,8 +66,8 @@ const ProductForm = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+    <form onSubmit={handleSubmit} encType="multipart/form-data">
+      <div className=" grid-2-col-form">
         <input
           name="name"
           placeholder="Name"
@@ -100,41 +100,52 @@ const ProductForm = () => {
           onChange={handleChange}
         />
         <input name="color" placeholder="Color" onChange={handleChange} />
+        <div className="flex gap1 e3in1">
+          <input
+            name="width"
+            type="number"
+            placeholder="Width"
+            onChange={handleChange}
+          />
+          <input
+            name="height"
+            type="number"
+            placeholder="Height"
+            onChange={handleChange}
+          />
+          <input
+            name="depth"
+            type="number"
+            placeholder="Depth"
+            onChange={handleChange}
+          />
+        </div>
         <input
-          name="width"
-          type="number"
-          placeholder="Width"
-          onChange={handleChange}
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          required
         />
-        <input
-          name="height"
-          type="number"
-          placeholder="Height"
-          onChange={handleChange}
-        />
-        <input
-          name="depth"
-          type="number"
-          placeholder="Depth"
-          onChange={handleChange}
-        />
+        {imagePreview && (
+          <div>
+            <h4>Vista previa:</h4>
+            <img
+              src={imagePreview}
+              alt="Vista previa"
+              style={{ maxWidth: "100%", height: "auto" }}
+            />
+          </div>
+        )}
         <textarea
           name="description"
           placeholder="Description"
           onChange={handleChange}
         />
-
-        <input type="file" accept="image/*" onChange={handleImageChange} required />
-        {imagePreview && (
-          <div>
-            <h4>Vista previa:</h4>
-            <img src={imagePreview} alt="Vista previa" style={{ maxWidth: "100%", height: "auto" }} />
-          </div>
-        )}
-
-        <button type="submit">Agregar producto</button>
-      </form>
-    </div>
+      </div>
+      <button className="button-1 bt-orange" type="submit">
+        Agregar producto
+      </button>
+    </form>
   );
 };
 
@@ -143,16 +154,10 @@ export default ProductForm;
 // import axios from "axios";
 // import { AuthContext } from "../context/AuthContext";
 
-
-
-
 // const ProductForm = () => {
-
-
 
 //   const { token } = useContext(AuthContext);
 //   console.log("Token:", token);  // Verifica si el token es correcto
-
 
 //   const [formData, setFormData] = useState({
 //     name: "",
@@ -166,9 +171,6 @@ export default ProductForm;
 //     depth: "",
 //     description: "",
 //   });
-
-  
-
 
 //   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 //     setFormData({ ...formData, [e.target.name]: e.target.value });

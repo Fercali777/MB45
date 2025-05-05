@@ -7,15 +7,18 @@ const Dashboard = () => {
 
     <div className="container">
         <div className="row">
-        <h1>Profile Info</h1>
-        <ProfileInfo />
-              <div className="col-lg-4 col-sm-12">
-
-              <h1>buttons</h1>
+              <div className="col-lg-3 col-sm-12">
+                <div className="flex flex-colum ">
+                <button className="buttonDash bt-cream">Settings</button>
+                <button className="buttonDash bt-cream">Favorites</button>
+                <button className="buttonDash bt-cream">My Store</button>
+                <button className="buttonDash bt-orange">Add New Product</button>
+                </div>
               </div>
-              <div className="col-lg-8 col-sm-12">
+              <div className="col-lg-9 col-sm-12">
 
-              <h1>formular</h1>
+              <h2>New Product Entry</h2>
+               <ProfileInfo />
               <ProductForm />
               </div>
         </div>
