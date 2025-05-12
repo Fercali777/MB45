@@ -9,7 +9,7 @@ import productRoutes from './routes/productRoutes';
 
 
 
-const app = express(); // ✅ Esta línea debe ir antes de cualquier uso de `app`
+const app = express();
 
 const PORT = process.env.PORT || 5000;
 
@@ -25,6 +25,8 @@ app.use(cors({
 // Rutas
 app.use('/api/auth', userRoutes);
 app.use('/api/products', productRoutes);
+
+
 
 // Ruta de prueba
 app.get('/', (req: Request, res: Response) => {

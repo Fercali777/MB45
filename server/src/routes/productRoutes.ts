@@ -3,9 +3,10 @@ import { Product } from '../models/Product';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/User';
 import multer from 'multer';
-import { storage } from '../config/cloudinary'; // Asegúrate de que este archivo esté correctamente configurado
-
-// Configurar multer con Cloudinary
+import { storage } from '../config/cloudinary'; 
+import mongoose from 'mongoose';
+console.log("✅ productRoutes.ts cargado");
+//  Multer with Cloudinary
 const upload = multer({ storage });
 
 const router = express.Router();
@@ -60,13 +61,47 @@ router.post('/add', upload.single('image'), addProduct);
 
 // Obtener todos los productos
 router.get('/', async (req: Request, res: Response) => {
+  console.log("👉 Ruta /api/products fue accedida");
   try {
-    const products = await Product.find().populate('seller', 'name email'); // puedes ajustar lo que quieras mostrar del seller
+    const products = await Product.find().populate('seller', 'name email');
+    console.log("Todos los productos disponibles:", products); // ← esto
     res.status(200).json(products);
   } catch (error) {
     console.error("Error al obtener productos:", error);
     res.status(500).json({ message: "Error al obtener productos" });
   }
 });
+// Obtener producto por ID
+
+
+
+router.get('/:id', async (req: Request, res: Response) => {
+  const { id } = req.params;
+  console.log("ID recibido:", id);
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    console.log("ID inválido");
+    res.status(400).json({ message: "ID no válido" });
+    return;
+  }
+
+  try {
+    const product = await Product.findById(id).populate('seller', 'name email');
+    if (!product) {
+      console.log("Producto no encontrado en la base de datos");
+      res.status(404).json({ message: "Producto no encontrado" });
+    } else {
+      console.log("Producto encontrado:", product);
+      res.status(200).json(product);
+    }
+  } catch (error) {
+    console.error("Error al obtener producto:", error);
+    res.status(500).json({ message: "Error al obtener producto" });
+  }
+});
+
+
+
+
 
 export default router;

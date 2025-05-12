@@ -8,6 +8,9 @@ import LoginPage from "./pages/LoginPage";
 import Furnitures from "./pages/Furnitures";
 import RegisterPage from "./pages/RegisterPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ProductDetail from "./components/ProductDetail";
+
+
 // import ProtectedRoute from "./components/ProtectedRoute";
 
 
@@ -21,6 +24,7 @@ function App() {
             {/* Dentro del layout */}
             <Route index element={<Home />} />
             <Route path="furnitures" element={<Furnitures />} />
+            <Route path="/products/:id" element={<ProductDetail />} />
             <Route path="register" element={<RegisterPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="dashboard" element={<Dashboard />} />

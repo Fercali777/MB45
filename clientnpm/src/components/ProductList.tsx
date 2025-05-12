@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router";
+
 
 interface Product {
   _id: string;
@@ -16,9 +18,13 @@ const ProductList = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+
+
     const fetchProducts = async () => {
       try {
+        console.log("⏳ Haciendo la solicitud a /api/products...");
         const res = await axios.get("http://localhost:5000/api/products");
+        console.log("📦 Productos recibidos:", res.data);
         setProducts(res.data);
       } catch (err) {
         console.error("Error al obtener productos:", err);
@@ -26,6 +32,7 @@ const ProductList = () => {
         setLoading(false);
       }
     };
+
 
     fetchProducts();
   }, []);
@@ -35,23 +42,22 @@ const ProductList = () => {
   return (
     <div className="grid-3-col">
     
-
     {products.map((product) => (
-      <section className="product flex">
-        
-          <img src={product.image} alt={product.name} className="product-picture-slider"  />
-          <div className="product-content">
-          <h3>{product.name}</h3>
-          <h4>{product.price} €</h4>
-          <p>{product.category}</p>
-          {product.description && <p>{product.description}</p>}
-          <a href="#" class="button-1 bt-orange">ADD TO CART</a>
-          <a href="forniture1.html" class="button-1 bt-orange">DETAILS</a>
-          <a href="#" class="button-like bt-black"></a>
-          </div>
-        
-        </section>
-      ))}
+  <section key={product._id} className="product flex">
+    <div className="imgContainer">
+      <img src={product.image} alt={product.name} className="product-picture-slider" />
+    </div>
+    <div className="product-content">
+      <h3>{product.name}</h3>
+      <h4>{product.price} €</h4>
+      <p>{product.category}</p>
+      {product.description && <p>{product.description}</p>}
+      <a href="#" className="button-1 bt-orange">ADD TO CART</a>
+      <Link to={`/products/${product._id}`} className="button-1 bt-orange">DETAILS</Link>
+      <a href="#" className="button-like bt-black"></a>
+    </div>
+  </section>
+))}
 
 
     
