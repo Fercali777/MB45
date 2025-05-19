@@ -6,6 +6,8 @@ import cors from 'cors';
 
 import userRoutes from './routes/userRoutes';
 import productRoutes from './routes/productRoutes';
+import commentRoutes from './routes/commentRoutes'; 
+
 
 
 
@@ -25,6 +27,7 @@ app.use(cors({
 // Rutas
 app.use('/api/auth', userRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/comments', commentRoutes);
 
 
 
