@@ -1,22 +1,42 @@
 import { useNavigate } from "react-router";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
-const LogoutButton = () => {
+const LoginLogoutButton = () => {
   const navigate = useNavigate();
+  const { user, logout } = useContext(AuthContext);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    logout();
     navigate("/login");
   };
 
+  const handleLoginRedirect = () => {
+    navigate("/login");
+  };
 
+  const handleRegisterRedirect = () => {
+    navigate("/register");
+  };
 
+  if (user) {
+    return (
+      <button onClick={handleLogout} className="button-1 bt-orange margin-b">
+        Logout
+      </button>
+    );
+  }
 
   return (
-    <button onClick={handleLogout} className="button-1 bt-orange margin-b">
-      Logout
-    </button>
+    <div className="flex gap-2">
+      <button onClick={handleLoginRedirect} className="button-1 bt-orange margin-b">
+        Login
+      </button>
+      <button onClick={handleRegisterRedirect} className="button-1 bt-grey margin-b">
+        Register
+      </button>
+    </div>
   );
 };
 
-export default LogoutButton;
+export default LoginLogoutButton;

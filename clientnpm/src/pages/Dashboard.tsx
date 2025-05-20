@@ -18,7 +18,7 @@ const Dashboard = () => {
               <div className="col-lg-9 col-sm-12">
 
               <h2>New Product Entry</h2>
-               <ProfileInfo />
+               {/* <ProfileInfo /> */}
               <ProductForm />
               </div>
         </div>
