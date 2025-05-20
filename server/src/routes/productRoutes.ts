@@ -101,6 +101,18 @@ router.get('/:id', async (req: Request, res: Response) => {
 });
 
 
+// Obtener productos por ID de usuario (vendedor)
+router.get('/seller/:userId', async (req: Request, res: Response) => {
+  const { userId } = req.params;
+  try {
+    const products = await Product.find({ seller: userId }).populate('seller', 'name email');
+    res.status(200).json(products);
+  } catch (error) {
+    console.error("Error al obtener productos del vendedor:", error);
+    res.status(500).json({ message: "Error al obtener productos del vendedor" });
+  }
+});
+
 
 
 

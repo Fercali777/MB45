@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import ProfileInfo from "../components/ProfileInfo";
 import ProductForm from "../components/ProductForm";
+import MyStore from "../components/MyStore";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
@@ -23,7 +24,12 @@ const Dashboard = () => {
           </>
         );
       case "store":
-        return <div>My Store (aquí irá el componente de la tienda)</div>;
+        return  (
+          <>
+            <h2>My profile</h2>
+            <MyStore />
+          </>
+        );
       case "favorites":
         return <div>Favorites (aquí irá el componente de favoritos)</div>;
       case "settings":
