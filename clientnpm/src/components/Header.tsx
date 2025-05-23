@@ -16,13 +16,13 @@ const isHome = location.pathname === "/";
       </div>
       <nav className="main-menu flex">
         <Link to="/furnitures" className="nav-item">FURNITURES</Link>
-        <Link to="/shopping-cart" className="nav-item">SHOPPING LIST</Link>
+        <Link to="/Dashboard" className="nav-item">Dashboard</Link>
       </nav>
       <nav className="right-menu flex">
         <Link to="/Dashboard" className="nav-item">
           <img src="img/i-user.png" alt="User Profile" className="icon-main-menu" />
         </Link>
-        <Link to="/shopping-cart" title="Shopping Car">
+        <Link to="/ShoppingList" title="Shopping Car">
           <img src="img/i-car.png" alt="Shopping Car" className="icon-main-menu" />
         </Link>
         <div className="logout-button"><LogoutButton /></div>

@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import Furnitures from "./pages/Furnitures";
 import RegisterPage from "./pages/RegisterPage";
+import ShoppingList from "./pages/ShoppingList";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProductDetail from "./components/ProductDetail";
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="register" element={<RegisterPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="ShoppingList" element={<ShoppingList />} />
             <Route 
               path="dashboard-seller"
               element={

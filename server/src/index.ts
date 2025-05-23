@@ -7,6 +7,9 @@ import cors from 'cors';
 import userRoutes from './routes/userRoutes';
 import productRoutes from './routes/productRoutes';
 import commentRoutes from './routes/commentRoutes'; 
+import shoppingRoutes from "./routes/shoppingRoutes";
+
+
 
 const app = express();
 
@@ -25,6 +28,7 @@ app.use(cors({
 app.use('/api/auth', userRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/comments', commentRoutes);
+app.use("/api/shopping", shoppingRoutes);
 
 
 
