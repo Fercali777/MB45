@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-dotenv.config();  // Cargar variables de entorno
+dotenv.config(); 
 import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -7,9 +7,6 @@ import cors from 'cors';
 import userRoutes from './routes/userRoutes';
 import productRoutes from './routes/productRoutes';
 import commentRoutes from './routes/commentRoutes'; 
-
-
-
 
 const app = express();
 

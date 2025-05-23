@@ -114,5 +114,45 @@ router.get('/me', async (req: Request, res: Response) => {
   }
 });
 
+router.put('/update', async (req: Request, res: Response) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    res.status(401).json({ message: 'Token missing' });
+  } else {
+    const token = authHeader.split(' ')[1];
+
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
+      const updates = req.body;
+
+      const updatedUser = await User.findByIdAndUpdate(decoded.id, updates, { new: true });
+
+      if (!updatedUser) {
+        res.status(404).json({ message: 'User not found' });
+      } else {
+        res.status(200).json({
+          user: {
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            role: updatedUser.role,
+            phone: updatedUser.phone,
+            address: updatedUser.address,
+            city: updatedUser.city,
+            country: updatedUser.country,
+            postCode: updatedUser.postCode,
+          },
+        });
+      }
+    } catch (err: any) {
+      console.error('Update error:', err.message);
+      res.status(401).json({ message: 'Invalid token' });
+    }
+  }
+});
+
+
+
 export default router;
 

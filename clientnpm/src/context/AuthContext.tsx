@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useState, useEffect, useContext, ReactNode } from "react";
 
 // 👤 Tipo de usuario personalizado 
 export type AppUser = {
@@ -20,6 +20,7 @@ type AuthContextType = {
   login: (email: string, password: string) => Promise<void>;
   register: (name: string, email: string, password: string, role: string) => Promise<void>;
   logout: () => void;
+  updateUser: (updatedData: Partial<AppUser>) => void;
 };
 
 type AuthProviderProps = {
@@ -33,6 +34,7 @@ const AuthContextInitValue: AuthContextType = {
   login: async () => {},
   register: async () => {},
   logout: () => {},
+  updateUser: () => {},
 };
 
 export const AuthContext = createContext<AuthContextType>(AuthContextInitValue);
@@ -95,6 +97,10 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
     localStorage.removeItem("token");
   };
 
+  const updateUser = (updatedData: Partial<AppUser>) => {
+    setUser((prev) => (prev ? { ...prev, ...updatedData } : null));
+  };
+
   useEffect(() => {
     const fetchUser = async () => {
       const storedToken = localStorage.getItem("token");
@@ -133,9 +139,22 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, token, loadingUser, login, register, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        token,
+        loadingUser,
+        login,
+        register,
+        logout,
+        updateUser,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
 
+export const useAuth = () => {
+  return useContext(AuthContext);
+};
