@@ -38,15 +38,15 @@ const CommentList = ({ productId }: CommentListProps) => {
     }
   }, [productId]);
 
-  if (loading) return <p>Cargando comentarios...</p>;
+  if (loading) return <p>Loading comments...</p>;
 
   return (
-    <div>
+    <div >
       {comments.length === 0 ? (
-        <p>No hay comentarios aún.</p>
+        <p>There are no comments yet.</p>
       ) : (
         comments.map((comment) => (
-          <div key={comment._id}>
+          <div className="comment" key={comment._id}>
             <p>{comment.text}</p>
             <p><small>{new Date(comment.createdAt).toLocaleString()}</small></p>
           </div>

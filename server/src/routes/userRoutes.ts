@@ -98,14 +98,19 @@ router.get('/me', async (req: Request, res: Response) => {
       if (!user) {
         res.status(404).json({ message: 'User not found' });
       } else {
-        res.status(200).json({
-          user: {
-            uid: user._id,
-            email: user.email,
-            name: user.name,
-            role: user.role,
-          },
-        });
+res.status(200).json({
+  user: {
+    uid: user._id,
+    email: user.email,
+    name: user.name,
+    role: user.role,
+    phone: user.phone,
+    address: user.address,
+    city: user.city,
+    country: user.country,
+    postCode: user.postCode,
+  },
+});
       }
     } catch (error: any) {
       console.error('Token error:', error.message || error);

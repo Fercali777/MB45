@@ -30,12 +30,12 @@ const CommentForm = ({ productId, onCommentAdded }: Props) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <textarea
+      <textarea className='CommentBox'
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="Escribe un comentario..."
+        placeholder="Write a comment..."
       />
-      <button type="submit">Comentar</button>
+      <button className='button-1 bt-orange' type="submit">post</button>
     </form>
   );
 };

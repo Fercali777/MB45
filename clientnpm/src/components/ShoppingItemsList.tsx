@@ -85,7 +85,7 @@ export const ShoppingItemsList = () => {
 
   return (
     <div>
-      <h2>Mi Lista de Compras</h2>
+      <h2>My Shopping List</h2>
       {items.length === 0 && <p>Tu lista está vacía.</p>}
       <ul style={{ listStyleType: "none", padding: 0 }}>
         {items.map(({ _id, productId, quantity }) => (
@@ -109,29 +109,29 @@ export const ShoppingItemsList = () => {
             />
             <div>
               <h3>{productId.name}</h3>
-              <p><strong>Precio:</strong> €{productId.price.toFixed(2)}</p>
+              <p><strong>Price:</strong> €{productId.price.toFixed(2)}</p>
               {productId.description && <p>{productId.description}</p>}
-              {productId.category && <p><strong>Categoría:</strong> {productId.category}</p>}
+              {productId.category && <p><strong>Category:</strong> {productId.category}</p>}
               {productId.mainMaterial && <p><strong>Material:</strong> {productId.mainMaterial}</p>}
               {productId.color && <p><strong>Color:</strong> {productId.color}</p>}
               {(productId.width && productId.height && productId.depth) && (
                 <p>
-                  <strong>Dimensiones:</strong> {productId.width} x {productId.height} x {productId.depth} cm
+                  <strong>Dimensions:</strong> {productId.width} x {productId.height} x {productId.depth} cm
                 </p>
               )}
               {productId.stock !== undefined && (
-                <p><strong>Stock disponible:</strong> {productId.stock}</p>
+                <p><strong>Stock available:</strong> {productId.stock}</p>
               )}
-              {productId.seller && (
-                <p><strong>Vendedor:</strong> {productId.seller.name} ({productId.seller.email})</p>
-              )}
-              <p><strong>Cantidad:</strong> {quantity}</p>
+              {productId.seller?.name && productId.seller?.email && (
+  <p><strong>Seller:</strong> {productId.seller.name} ({productId.seller.email})</p>
+)}
+              <p><strong>Amount:</strong> {quantity}</p>
               <p><strong>Subtotal:</strong> €{(productId.price * quantity).toFixed(2)}</p>
-              <button
+              <button className="button-1 bt-orange"
                 style={{ marginTop: "0.5rem" }}
                 onClick={() => handleRemove(_id)}
               >
-                Eliminar
+                Remove
               </button>
             </div>
           </li>

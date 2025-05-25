@@ -34,8 +34,6 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
-
-
   if (loading) return <p>Cargando productos...</p>;
 
   return (
@@ -54,7 +52,7 @@ const ProductList = () => {
             <h4>{product.price} €</h4>
             <p>{product.category}</p>
             {product.description && <p>{product.description}</p>}
-{product._id && <AddToCartButton productId={product._id} />}
+            {product._id && <AddToCartButton productId={product._id} />}
             <Link
               to={`/products/${product._id}`}
               className="button-1 bt-orange"

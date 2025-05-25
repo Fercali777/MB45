@@ -24,6 +24,7 @@ const ProfileInfo: React.FC = () => {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
+          console.log("Datos del usuario:", response.data); 
           const data = response.data;
           setFormData({
             name: data.user.name || "",
@@ -68,23 +69,26 @@ const ProfileInfo: React.FC = () => {
 
   return (
     <div>
-   <div>
-   
-   {user ? (
-        <div>
-          <p>Name: {user.name}</p>
-          <p>Email: {user.email}</p>
-          <p>Phone Number: {user.phone}</p>
-          <p>Address: {user.address}, {user.city}, {user.country} ({user.postCode})</p>
-          <p>Role: {user.role}</p>
-        </div>
-      ) : (
-        <p>You are not logged in</p>
-      )}
-    </div>
+      <div>
+{token ? (
+  <div>
+    <p>Name: {formData.name}</p>
+    <p>Email: {formData.email}</p>
+    <p>Phone Number: {formData.phone}</p>
+    <p>
+      Address:
+      {[formData.address, formData.city, formData.country].filter(Boolean).join(", ")}
+      {formData.postCode && ` (${formData.postCode})`}
+    </p>
+    <p>Role: {formData.role}</p>
+  </div>
+) : (
+  <p>You are not logged in</p>
+)}
+      </div>
       <h2>Change my profile information</h2>
       {message && <p>{message}</p>}
-      <form onSubmit={handleSubmit}>
+      <form className="wrap flex gap1" onSubmit={handleSubmit}>
         <input
           type="text"
           name="name"
@@ -142,41 +146,12 @@ const ProfileInfo: React.FC = () => {
           onChange={handleChange}
           disabled
         />
-        <button type="submit">Save changes</button>
+        <button className="button-1 bt-orange" type="submit">
+          Save changes{" "}
+        </button>
       </form>
     </div>
   );
 };
 
 export default ProfileInfo;
-
-
-
-
-// // src/components/ProfileInfo.tsx
-// import { useContext } from "react";
-// import { AuthContext } from "../context/AuthContext";
-
-// const ProfileInfo = () => {
-//   const { user } = useContext(AuthContext);
-//   console.log("User en ProfileInfo:", user); 
-
-//   return (
-//     <div>
-   
-//       {user ? (
-//         <div>
-//           <p>Nombre: {user.name}</p>
-//           <p>Email: {user.email}</p>
-//           <p>Teléfono: {user.phone}</p>
-//           <p>Dirección: {user.address}, {user.city}, {user.country} ({user.postCode})</p>
-//           <p>Rol: {user.role}</p>
-//         </div>
-//       ) : (
-//         <p>No estás logueado</p>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default ProfileInfo;

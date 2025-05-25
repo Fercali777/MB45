@@ -61,9 +61,9 @@ const ProductDetail = () => {
           <img
             src={product.image}
             alt={product.name}
-            className="detail-image"
+            className="product-picture-list"
           />
-          {product._id && <AddToCartButton productId={product._id} />}
+          
         </div>
 
         <div className="col-lg-6 col-sm-12">
@@ -93,6 +93,7 @@ const ProductDetail = () => {
                 {product.seller.email})
               </p>
             )}
+            {product._id && <AddToCartButton productId={product._id} />}
           </div>
         </div>
       </div>
