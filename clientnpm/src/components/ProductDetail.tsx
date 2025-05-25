@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
-import CommentForm from './CommentForm';
-import CommentList from './CommentList';
+import CommentForm from "./CommentForm";
+import CommentList from "./CommentList";
+import AddToCartButton from "./AddToCartButton";
 
 interface Product {
   _id: string;
@@ -24,29 +25,31 @@ interface Product {
 }
 
 const ProductDetail = () => {
-  const { id: productId } = useParams();  // Renombramos a productId
+  const { id: productId } = useParams(); // Renombramos a productId
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [reload, setReload] = useState(false);
 
   const handleCommentAdded = () => setReload(!reload);
 
-useEffect(() => {
-  const fetchProduct = async () => {
-    try {
-      const res = await axios.get(`http://localhost:5000/api/products/${productId}`);
-      setProduct(res.data);
-    } catch (err) {
-      console.error("Error al obtener producto:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/products/${productId}`
+        );
+        setProduct(res.data);
+      } catch (err) {
+        console.error("Error al obtener producto:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  if (productId) {
-    fetchProduct();
-  }
-}, [productId]);
+    if (productId) {
+      fetchProduct();
+    }
+  }, [productId]);
 
   if (loading) return <p>Cargando producto...</p>;
   if (!product) return <p>Producto no encontrado.</p>;
@@ -55,7 +58,12 @@ useEffect(() => {
     <div className="container">
       <div className="row">
         <div className="col-lg-6 col-sm-12">
-          <img src={product.image} alt={product.name} className="detail-image" />
+          <img
+            src={product.image}
+            alt={product.name}
+            className="detail-image"
+          />
+          {product._id && <AddToCartButton productId={product._id} />}
         </div>
 
         <div className="col-lg-6 col-sm-12">
@@ -63,13 +71,27 @@ useEffect(() => {
             <h2>{product.name}</h2>
             <h3>{product.price} €</h3>
             <p>{product.description}</p>
-            <p><strong>Categoría:</strong> {product.category}</p>
-            <p><strong>Material:</strong> {product.mainMaterial}</p>
-            <p><strong>Color:</strong> {product.color}</p>
-            <p><strong>Dimensiones:</strong> {product.width}x{product.height}x{product.depth} cm</p>
-            <p><strong>Stock disponible:</strong> {product.stock}</p>
+            <p>
+              <strong>Categoría:</strong> {product.category}
+            </p>
+            <p>
+              <strong>Material:</strong> {product.mainMaterial}
+            </p>
+            <p>
+              <strong>Color:</strong> {product.color}
+            </p>
+            <p>
+              <strong>Dimensiones:</strong> {product.width}x{product.height}x
+              {product.depth} cm
+            </p>
+            <p>
+              <strong>Stock disponible:</strong> {product.stock}
+            </p>
             {product.seller && (
-              <p><strong>Vendedor:</strong> {product.seller.name} ({product.seller.email})</p>
+              <p>
+                <strong>Vendedor:</strong> {product.seller.name} (
+                {product.seller.email})
+              </p>
             )}
           </div>
         </div>
@@ -78,8 +100,11 @@ useEffect(() => {
       {/* Comentarios */}
       {productId && (
         <>
-         <CommentForm productId={product._id} onCommentAdded={handleCommentAdded} />
-<CommentList key={reload.toString()} productId={product._id} />
+          <CommentForm
+            productId={product._id}
+            onCommentAdded={handleCommentAdded}
+          />
+          <CommentList key={reload.toString()} productId={product._id} />
         </>
       )}
     </div>
@@ -87,75 +112,3 @@ useEffect(() => {
 };
 
 export default ProductDetail;
-
-// import { useParams } from "react-router";
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-
-// interface Product {
-//   _id: string;
-//   name: string;
-//   category: string;
-//   price: number;
-//   stock: number;
-//   mainMaterial?: string;
-//   color?: string;
-//   width?: number;
-//   height?: number;
-//   depth?: number;
-//   description?: string;
-//   image: string;
-//   seller?: {
-//     name: string;
-//     email: string;
-//   };
-// }
-
-// const ProductDetail = () => {
-//   const { id } = useParams<{ id: string }>();
-//   const [product, setProduct] = useState<Product | null>(null);
-//   const [loading, setLoading] = useState(true);
-//   useEffect(() => {
-//     console.log("ID del producto:", id);
-//     // ...
-//   }, [id]);
-
-//   useEffect(() => {
-//     const fetchProduct = async () => {
-//       try {
-//         const res = await axios.get(`http://localhost:5000/api/products/${id}`);
-//         setProduct(res.data);
-//       } catch (err) {
-//         console.error("Error al obtener producto:", err);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchProduct();
-//   }, [id]);
-
-//   if (loading) return <p>Cargando detalle del producto...</p>;
-//   if (!product) return <p>Producto no encontrado</p>;
-
-//   return (
-//     <div className="product-detail">
-//       <img src={product.image} alt={product.name} className="detail-image" />
-//       <div className="detail-content">
-//         <h2>{product.name}</h2>
-//         <p><strong>Precio:</strong> {product.price} €</p>
-//         <p><strong>Categoría:</strong> {product.category}</p>
-//         <p><strong>Material:</strong> {product.mainMaterial}</p>
-//         <p><strong>Color:</strong> {product.color}</p>
-//         <p><strong>Dimensiones:</strong> {product.width}x{product.height}x{product.depth} cm</p>
-//         <p><strong>Stock disponible:</strong> {product.stock}</p>
-//         <p><strong>Descripción:</strong> {product.description}</p>
-//         {product.seller && (
-//           <p><strong>Vendedor:</strong> {product.seller.name} ({product.seller.email})</p>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }; 
-
-// export default ProductDetail;

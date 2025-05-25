@@ -113,6 +113,27 @@ router.get('/seller/:userId', async (req: Request, res: Response) => {
   }
 });
 
+// Eliminar producto por ID
+router.delete('/:id', async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    res.status(400).json({ message: 'ID no válido' });
+  } else {
+    try {
+      const deletedProduct = await Product.findByIdAndDelete(id);
+
+      if (!deletedProduct) {
+        res.status(404).json({ message: 'Producto no encontrado' });
+      } else {
+        res.status(200).json({ message: 'Producto eliminado correctamente' });
+      }
+    } catch (error) {
+      console.error('Error al eliminar producto:', error);
+      res.status(500).json({ message: 'Error al eliminar producto' });
+    }
+  }
+});
 
 
 

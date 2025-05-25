@@ -125,12 +125,15 @@
   .product-picture-slider {
     width: auto;
     min-width: 100px;
-    max-height: 220px;
-    /* height: fit-content; */
+    max-height: 720px;
+  }
+  .product-picture-list{
+    width: 100%;
+
   }
   .right-menu {
     min-height: 20px;
-    width: 200px;
+    /* width: 200px; */
     justify-content: space-between;
   }
   .product {
@@ -153,7 +156,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: #f6563d;
-  
+    margin-top: 100px;
     padding: 3px 30px 3px 30px;
   }
   .logo-footer {
@@ -197,7 +200,8 @@
     background-repeat: no-repeat;
   }
   .logout-button {
-    min-width: 203px; 
+    
+    margin-left: 20px;
   }
   .button-like {
     background-image: url("/img/i-heart.png");
@@ -212,7 +216,7 @@
   }
   .bt-orange {
     background-color: #ff5b40;
-    color: white;
+    color: white !important;
   }
   .bt-cream {
     background-color: #F2EAB3;
@@ -360,7 +364,7 @@ margin-top: -80px;
   
   /* Grid & Flex----------------------------------------------------------------------*/
   .content {
-    margin: 0px 15% 80px 15%;
+    margin: 0px 10% 80px 10%;
   }
   .flex {
     display: flex;

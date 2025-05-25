@@ -72,77 +72,77 @@ const ProfileInfo: React.FC = () => {
    
    {user ? (
         <div>
-          <p>Nombre: {user.name}</p>
+          <p>Name: {user.name}</p>
           <p>Email: {user.email}</p>
-          <p>Teléfono: {user.phone}</p>
-          <p>Dirección: {user.address}, {user.city}, {user.country} ({user.postCode})</p>
-          <p>Rol: {user.role}</p>
+          <p>Phone Number: {user.phone}</p>
+          <p>Address: {user.address}, {user.city}, {user.country} ({user.postCode})</p>
+          <p>Role: {user.role}</p>
         </div>
       ) : (
-        <p>No estás logueado</p>
+        <p>You are not logged in</p>
       )}
     </div>
-      <h2>Información del perfil</h2>
+      <h2>Change my profile information</h2>
       {message && <p>{message}</p>}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="name"
-          placeholder="Nombre"
+          placeholder="Name"
           value={formData.name}
           onChange={handleChange}
         />
         <input
           type="email"
           name="email"
-          placeholder="Correo electrónico"
+          placeholder="Email"
           value={formData.email}
           onChange={handleChange}
         />
         <input
           type="text"
           name="phone"
-          placeholder="Teléfono"
+          placeholder="Phone Number"
           value={formData.phone}
           onChange={handleChange}
         />
         <input
           type="text"
           name="address"
-          placeholder="Dirección"
+          placeholder="Address"
           value={formData.address}
           onChange={handleChange}
         />
         <input
           type="text"
           name="city"
-          placeholder="Ciudad"
+          placeholder="City"
           value={formData.city}
           onChange={handleChange}
         />
         <input
           type="text"
           name="country"
-          placeholder="País"
+          placeholder="Country"
           value={formData.country}
           onChange={handleChange}
         />
         <input
           type="text"
           name="postCode"
-          placeholder="Código postal"
+          placeholder="Post Code"
           value={formData.postCode}
           onChange={handleChange}
         />
         <input
           type="text"
           name="role"
-          placeholder="Rol"
+          placeholder="Role"
           value={formData.role}
           onChange={handleChange}
           disabled
         />
-        <button type="submit">Guardar cambios</button>
+        <button type="submit">Save changes</button>
       </form>
     </div>
   );

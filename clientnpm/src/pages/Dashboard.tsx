@@ -2,15 +2,15 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import ProfileInfo from "../components/ProfileInfo";
 import ProductForm from "../components/ProductForm";
+import { ShoppingItemsList } from "../components/ShoppingItemsList";
 import MyStore from "../components/MyStore";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
-  const [activeSection, setActiveSection] = useState<"settings" | "favorites" | "store" | "add">("add");
+  const [activeSection, setActiveSection] = useState<"settings" | "ShoppingCart" | "store" | "add">("add");
   const isSeller = user?.role === "seller";
+  const isBuyer = user?.role === "buyer";
 
-  /** 🔸 Devuelve "buttonDash bt-orange" si es la sección activa;
-   *   de lo contrario "buttonDash bt-cream"   */
   const btnClass = (section: typeof activeSection) =>
     `buttonDash ${activeSection === section ? "bt-orange" : "bt-cream"}`;
 
@@ -24,14 +24,18 @@ const Dashboard = () => {
           </>
         );
       case "store":
-        return  (
+        return (
           <>
             <h2>My profile</h2>
             <MyStore />
           </>
         );
-      case "favorites":
-        return <div>Favorites (aquí irá el componente de favoritos)</div>;
+      case "ShoppingCart":
+        return (
+          <>
+            <ShoppingItemsList />
+          </>
+        );
       case "settings":
         return (
           <>
@@ -57,12 +61,15 @@ const Dashboard = () => {
               Settings
             </button>
 
-            <button
-              className={btnClass("favorites")}
-              onClick={() => setActiveSection("favorites")}
-            >
-              Favorites
-            </button>
+            {/* Mostrar solo para buyers */}
+            {isBuyer && (
+              <button
+                className={btnClass("ShoppingCart")}
+                onClick={() => setActiveSection("ShoppingCart")}
+              >
+                Shopping Cart
+              </button>
+            )}
 
             {/* Solo visible para seller */}
             {isSeller && (
