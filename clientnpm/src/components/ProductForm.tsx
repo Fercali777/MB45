@@ -38,7 +38,7 @@ const ProductForm = () => {
 
     // Validación básica
     if (parseFloat(formData.price) <= 0) {
-      alert("El precio debe ser un valor positivo");
+      alert("The price must be a positive value");
       return;
     }
 
@@ -58,10 +58,10 @@ const ProductForm = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      alert("Producto agregado exitosamente");
+      alert("Product added successfully");
     } catch (error: any) {
       console.error(error);
-      alert(error.response?.data?.message || "Error al agregar producto");
+      alert(error.response?.data?.message || "Error adding product");
     }
   };
 
@@ -151,10 +151,10 @@ const ProductForm = () => {
 
     {imagePreview && (
       <div>
-        <h4>Vista previa:</h4>
+        <h4>Preview:</h4>
         <img
           src={imagePreview}
-          alt="Vista previa"
+          alt="Preview"
           style={{ maxWidth: "100%", height: "auto" }}
         />
       </div>
@@ -168,7 +168,7 @@ const ProductForm = () => {
   </div>
 
   <button className="button-1 bt-orange" type="submit">
-    Agregar producto
+    Add product
   </button>
 </form>
   );

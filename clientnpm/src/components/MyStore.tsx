@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
-import { Link } from "react-router"; // <- corregido aquí
+import { Link } from "react-router"; 
 
 interface Product {
   _id: string;
@@ -33,7 +33,7 @@ const MyStore = () => {
         );
         setProducts(res.data);
       } catch (err) {
-        console.error("Error al obtener productos del vendedor:", err);
+        console.error("Error getting products from seller:", err);
       } finally {
         setLoadingProducts(false);
       }
@@ -64,21 +64,21 @@ const MyStore = () => {
   };
 
   if (loadingUser || !userReady || loadingProducts) {
-    return <p>Cargando tus productos...</p>;
+    return <p>Loading your products...</p>;
   }
 
   if (!user) {
-    return <p>Debes estar logueado para ver esta sección.</p>;
+    return <p>You must be logged in to view this section.</p>;
   }
 
   if (user.role !== "seller") {
-    return <p>Solo los vendedores pueden ver sus productos aquí.</p>;
+    return <p>Only sellers can see their products here.</p>;
   }
 
   return (
     <div className="grid-3-col">
       {products.length === 0 ? (
-        <p>No tienes productos creados aún.</p>
+        <p>You have no products created yet.</p>
       ) : (
         products.map((product) => (
           <section key={product._id} className="product flex">

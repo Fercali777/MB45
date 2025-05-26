@@ -20,12 +20,12 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        console.log("⏳ Haciendo la solicitud a /api/products...");
+        console.log("Making the request to /api/products...");
         const res = await axios.get("http://localhost:5000/api/products");
-        console.log("📦 Productos recibidos:", res.data);
+        console.log("Products received:", res.data);
         setProducts(res.data);
       } catch (err) {
-        console.error("Error al obtener productos:", err);
+        console.error("Error getting products:", err);
       } finally {
         setLoading(false);
       }

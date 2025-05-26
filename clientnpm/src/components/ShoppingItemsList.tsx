@@ -35,7 +35,7 @@ export const ShoppingItemsList = () => {
   if (loadingUser) return <p>Cargando usuario...</p>;
   if (!user) return <p>Debes iniciar sesión para ver tu lista de compras.</p>;
   if (user.role !== "buyer")
-    return <p>Solo usuarios con rol comprador pueden acceder a la lista.</p>;
+    return <p>Only users with the buyer role can access the list.</p>;
 
   useEffect(() => {
     const fetchItems = async () => {
