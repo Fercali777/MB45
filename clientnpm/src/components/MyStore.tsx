@@ -101,7 +101,7 @@ const MyStore = () => {
                 className="button-1 bt-red"
                 onClick={() => handleDelete(product._id)}
               >
-                ELIMINAR
+                remove
               </button>
             </div>
           </section>

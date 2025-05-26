@@ -1,5 +1,4 @@
 
-import RegisterForm from "../components/RegisterForm";
 import { Link } from "react-router";
 
 const Home = () => {

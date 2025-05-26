@@ -51,16 +51,17 @@ const ProfileInfo: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.put(
-        "http://localhost:5000/api/auth/update",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setMessage("Perfil actualizado correctamente.");
+      await axios.put(
+  "http://localhost:5000/api/auth/update",
+  formData,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
+
+setMessage("Perfil actualizado correctamente.");
     } catch (error) {
       console.error("Error al actualizar el perfil:", error);
       setMessage("Error al actualizar el perfil.");

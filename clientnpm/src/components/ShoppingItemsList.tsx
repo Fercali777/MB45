@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
 interface Product {
@@ -85,7 +85,7 @@ export const ShoppingItemsList = () => {
 
   return (
     <div>
-      <h2>My Shopping List</h2>
+      <h1>My Shopping List</h1>
       {items.length === 0 && <p>Tu lista está vacía.</p>}
       <ul style={{ listStyleType: "none", padding: 0 }}>
         {items.map(({ _id, productId, quantity }) => (

@@ -7,7 +7,7 @@ const ShoppingList: React.FC = () => {
     <div className="container">
         <div className="row">
               <div className="col-lg-6 col-sm-12">
-                <h1>Shopping Carts</h1>
+                
                 <ShoppingItemsList />
               </div>
         </div>
