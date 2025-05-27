@@ -49,7 +49,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
 
   const login = async (email: string, password: string) => {
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const res = await fetch("https://mb-45-mongo-db.vercel.app/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -75,7 +75,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
 
   const register = async (name: string, email: string, password: string, role: string) => {
     try {
-      const res = await fetch("http://localhost:5000/api/auth/register", {
+      const res = await fetch("https://mb-45-mongo-db.vercel.app/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password, role }),
@@ -117,7 +117,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
       }
 
       try {
-        const res = await fetch("http://localhost:5000/api/auth/me", {
+        const res = await fetch("https://mb-45-mongo-db.vercel.app/api/auth/me", {
           headers: {
             Authorization: `Bearer ${storedToken}`,
           },

@@ -25,7 +25,7 @@ const RegisterForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "https://mb-45-mongo-db.vercel.app/api/auth/register",
         formData
       );
       setMessage(response.data.message);

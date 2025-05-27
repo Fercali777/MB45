@@ -21,7 +21,7 @@ const ProductList = () => {
     const fetchProducts = async () => {
       try {
         console.log("Making the request to /api/products...");
-        const res = await axios.get("http://localhost:5000/api/products");
+        const res = await axios.get("https://mb-45-mongo-db.vercel.app/api/products");
         console.log("Products received:", res.data);
         setProducts(res.data);
       } catch (err) {

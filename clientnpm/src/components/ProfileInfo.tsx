@@ -20,7 +20,7 @@ const ProfileInfo: React.FC = () => {
   useEffect(() => {
     if (user && token) {
       axios
-        .get("http://localhost:5000/api/auth/me", {
+        .get("https://mb-45-mongo-db.vercel.app/api/auth/me", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
@@ -52,7 +52,7 @@ const ProfileInfo: React.FC = () => {
     e.preventDefault();
     try {
       await axios.put(
-  "http://localhost:5000/api/auth/update",
+  "https://mb-45-mongo-db.vercel.app/api/auth/update",
   formData,
   {
     headers: {

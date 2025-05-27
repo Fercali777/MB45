@@ -13,7 +13,7 @@ const CommentForm = ({ productId, onCommentAdded }: Props) => {
     e.preventDefault();
     try {
       await axios.post(
-        `http://localhost:5000/api/comments/${productId}`, // productId en la URL
+        `https://mb-45-mongo-db.vercel.app/api/comments/${productId}`, // productId en la URL
         { text }, // el backend espera "text", no "content"
         {
           headers: {

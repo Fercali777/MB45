@@ -55,7 +55,7 @@ const handleChange = (
     }
 
     try {
-      await axios.post("http://localhost:5000/api/products/add", data, {
+      await axios.post("https://mb-45-mongo-db.vercel.app/api/products/add", data, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

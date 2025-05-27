@@ -36,7 +36,7 @@ const ProductDetail = () => {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/products/${productId}`
+          `https://mb-45-mongo-db.vercel.app/api/products/${productId}`
         );
         setProduct(res.data);
       } catch (err) {

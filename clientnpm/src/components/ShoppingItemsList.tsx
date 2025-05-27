@@ -43,7 +43,7 @@ export const ShoppingItemsList = () => {
       setError(null);
 
       try {
-        const res = await fetch("http://localhost:5000/api/shopping", {
+        const res = await fetch("https://mb-45-mongo-db.vercel.app/api/shopping", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -65,7 +65,7 @@ export const ShoppingItemsList = () => {
 
   const handleRemove = async (id: string) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/shopping/${id}`, {
+      const res = await fetch(`https://mb-45-mongo-db.vercel.app/api/shopping/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

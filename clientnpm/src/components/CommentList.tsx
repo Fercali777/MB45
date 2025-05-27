@@ -20,7 +20,7 @@ const CommentList = ({ productId }: CommentListProps) => {
     const fetchComments = async () => {
       try {
         
-        const res = await axios.get(`http://localhost:5000/api/comments/${productId}`);
+        const res = await axios.get(`https://mb-45-mongo-db.vercel.app/api/comments/${productId}`);
         if (Array.isArray(res.data)) {
           setComments(res.data);
         } else {

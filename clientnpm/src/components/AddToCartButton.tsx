@@ -17,7 +17,7 @@ const AddToCartButton = ({ productId, quantity = 1, className = "button-1 bt-ora
       }
 
       const res = await axios.post(
-        "http://localhost:5000/api/shopping/add",
+        "https://mb-45-mongo-db.vercel.app/api/shopping/add",
         { productId, quantity },
         {
           headers: {

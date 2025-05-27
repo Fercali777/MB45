@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000/api', // Cambia esto si tienes otra URL
+  baseURL: 'https://mb-45-mongo-db.vercel.app/api', // Cambia esto si tienes otra URL
   headers: {
     'Content-Type': 'application/json',
   },

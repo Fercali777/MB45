@@ -24,7 +24,7 @@ const MyStore = () => {
     const fetchProducts = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/products/seller/${user._id}`,
+          `https://mb-45-mongo-db.vercel.app/api/products/seller/${user._id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -49,7 +49,7 @@ const MyStore = () => {
     if (!confirm) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/products/${productId}`, {
+      await axios.delete(`https://mb-45-mongo-db.vercel.app/api/products/${productId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
