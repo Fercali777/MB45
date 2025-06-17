@@ -9,7 +9,7 @@ export const isAuth: RequestHandler = (req, res, next) => {
   const token = req.header('Authorization')?.split(' ')[1];
 
   if (!token) {
-    res.status(401).json({ message: 'No token, autorización denegada' });
+    res.status(401).json({ message: 'No token, authorization denied' });
   } else {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload;
@@ -18,10 +18,10 @@ export const isAuth: RequestHandler = (req, res, next) => {
         (req as AuthenticatedRequest).userId = decoded.id;
         next();
       } else {
-        res.status(401).json({ message: 'Token inválido' });
+        res.status(401).json({ message: 'Invalid token' });
       }
     } catch (err) {
-      res.status(401).json({ message: 'Token no válido' });
+      res.status(401).json({ message: 'Invalid token' });
     }
   }
 };

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-
+const API_URL = import.meta.env.VITE_API_URL;
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -25,7 +25,7 @@ const RegisterForm = () => {
 
     try {
       const response = await axios.post(
-        "https://mb-45-mongo-db.vercel.app/api/auth/register",
+        `${API_URL}/auth/register`,
         formData
       );
       setMessage(response.data.message);
@@ -40,21 +40,21 @@ const RegisterForm = () => {
         <input
           type="text"
           name="name"
-          placeholder="Nombre"
+          placeholder="Name"
           onChange={handleChange}
           required
         />
         <input
           type="email"
           name="email"
-          placeholder="Correo"
+          placeholder="E-mail"
           onChange={handleChange}
           required
         />
         <input
           type="password"
           name="password"
-          placeholder="Contraseña"
+          placeholder="Pasword"
           onChange={handleChange}
           required
         />
@@ -89,7 +89,7 @@ const RegisterForm = () => {
         <input
           type="postCode"
           name="postCode"
-          placeholder="postCode"
+          placeholder="PostCode"
           onChange={handleChange}
           required
         />

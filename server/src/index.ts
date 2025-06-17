@@ -20,7 +20,7 @@ app.use(express.json());
 
 // CORS para permitir conexión con frontend
 app.use(cors({
-  origin: 'https://mb-45-mongo-db-rg2t.vercel.app',
+  origin: ['https://mb-45-mongo-db-rg2t.vercel.app', 'http://localhost:5173'],
   credentials: true,
 }));
 

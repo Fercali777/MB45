@@ -29,7 +29,7 @@ const fileFilter = (req, file, cb) => {
         cb(null, true);
     }
     else {
-        cb(new Error('Formato de imagen no válido. Solo se permite JPG, JPEG y PNG.'), false);
+        cb(new Error('Invalid image format. Only JPG, JPEG, and PNG are allowed.'), false);
     }
 };
 const upload = (0, multer_1.default)({ storage, fileFilter });

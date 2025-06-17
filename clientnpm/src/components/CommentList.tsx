@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+const API_URL = import.meta.env.VITE_API_URL;
 interface Comment {
   _id: string;
   userId: string;
@@ -20,7 +20,7 @@ const CommentList = ({ productId }: CommentListProps) => {
     const fetchComments = async () => {
       try {
         
-        const res = await axios.get(`https://mb-45-mongo-db.vercel.app/api/comments/${productId}`);
+        const res = await axios.get(`${API_URL}comments/${productId}`);
         if (Array.isArray(res.data)) {
           setComments(res.data);
         } else {

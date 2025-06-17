@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface Props {
   productId: string;
@@ -14,7 +14,7 @@ const CommentForm = ({ productId, onCommentAdded }: Props) => {
     e.preventDefault();
     try {
       await axios.post(
-        `https://mb-45-mongo-db.vercel.app/api/comments/${productId}`, // productId en la URL
+        `${API_URL}comments/${productId}`, // productId en la URL
         { text }, // el backend espera "text", no "content"
         {
           headers: {

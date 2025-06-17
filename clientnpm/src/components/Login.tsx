@@ -18,7 +18,7 @@ const Login = () => {
 
     } catch (err: any) {
       console.error(err);
-      const msg = err.response?.data?.message || 'Error al iniciar sesión';
+      const msg = err.response?.data?.message || 'Login failed';
       setError(msg);
     }
   };

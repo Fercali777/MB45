@@ -1,24 +1,25 @@
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 interface AddToCartButtonProps {
   productId: string;
   quantity?: number;
   className?: string;
 }
-const API_URL = import.meta.env.VITE_API_URL;
+
 const AddToCartButton = ({ productId, quantity = 1, className = "button-1 bt-orange" }: AddToCartButtonProps) => {
   const handleAddToCart = async () => {
     try {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        alert("Debes iniciar sesión para agregar productos al carrito.");
+        alert("You must log in to add products to your cart");
         return;
       }
 
       const res = await axios.post(
         `${API_URL}/shopping/add`,
-       
         { productId, quantity },
         {
           headers: {
@@ -30,8 +31,8 @@ const AddToCartButton = ({ productId, quantity = 1, className = "button-1 bt-ora
       alert("Producto añadido al carrito!");
       console.log("✅ Respuesta:", res.data);
     } catch (err) {
-      console.error("❌ Error al agregar al carrito:", err);
-      alert("Error al agregar al carrito");
+      console.error("Error adding to cart:", err);
+      alert("Error adding to cart");
     }
   };
 

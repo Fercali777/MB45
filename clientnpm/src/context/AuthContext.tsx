@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useContext, ReactNode } from "react";
-
+const API_URL = import.meta.env.VITE_API_URL;
 //  Tipo de usuario personalizado 
 export type AppUser = {
   _id: string;
@@ -49,7 +49,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
 
   const login = async (email: string, password: string) => {
     try {
-      const res = await fetch("https://mb-45-mongo-db.vercel.app/api/auth/login", {
+      const res = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -75,7 +75,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
 
   const register = async (name: string, email: string, password: string, role: string) => {
     try {
-      const res = await fetch("https://mb-45-mongo-db.vercel.app/api/auth/register", {
+      const res = await fetch(`${API_URL}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password, role }),
@@ -117,7 +117,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
       }
 
       try {
-        const res = await fetch("https://mb-45-mongo-db.vercel.app/api/auth/me", {
+        const res = await fetch(`${API_URL}/auth/me`, {
           headers: {
             Authorization: `Bearer ${storedToken}`,
           },

@@ -5,7 +5,7 @@ import { User } from '../models/User';
 import multer from 'multer';
 import { storage } from '../config/cloudinary'; 
 import mongoose from 'mongoose';
-console.log("✅ productRoutes.ts cargado");
+console.log(" productRoutes.ts load");
 //  Multer with Cloudinary
 const upload = multer({ storage });
 
@@ -24,7 +24,7 @@ const addProduct = async (req: Request, res: Response): Promise<void> => {
   const token = authHeader.split(' ')[1];
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
-    console.log('Token decodificado:', decoded);
+    console.log('Decoded token:', decoded);
 
     const user = await User.findById(decoded.id);
     if (!user) {
@@ -32,7 +32,7 @@ const addProduct = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    console.log('Usuario encontrado:', user);
+    console.log('User found:', user);
 
     console.log('req.file:', req.file);
     console.log('req.body:', req.body);
@@ -44,7 +44,7 @@ const addProduct = async (req: Request, res: Response): Promise<void> => {
       seller: user._id,
     };
 
-    console.log('Datos del producto a guardar:', productData);
+    console.log('Product data to save:', productData);
 
     const newProduct = new Product(productData);
     await newProduct.save();
@@ -64,11 +64,11 @@ router.get('/', async (req: Request, res: Response) => {
   console.log("👉 Ruta /api/products fue accedida");
   try {
     const products = await Product.find().populate('seller', 'name email');
-    console.log("Todos los productos disponibles:", products); // ← esto
+    console.log("All products available:", products); // ← esto
     res.status(200).json(products);
   } catch (error) {
-    console.error("Error al obtener productos:", error);
-    res.status(500).json({ message: "Error al obtener productos" });
+    console.error("Error getting products:", error);
+    res.status(500).json({ message: "Error getting products" });
   }
 });
 // Obtener producto por ID
@@ -77,26 +77,26 @@ router.get('/', async (req: Request, res: Response) => {
 
 router.get('/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
-  console.log("ID recibido:", id);
+  console.log("ID received:", id);
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    console.log("ID inválido");
-    res.status(400).json({ message: "ID no válido" });
+    console.log("Invalid ID");
+    res.status(400).json({ message: "Invalid ID" });
     return;
   }
 
   try {
     const product = await Product.findById(id).populate('seller', 'name email');
     if (!product) {
-      console.log("Producto no encontrado en la base de datos");
-      res.status(404).json({ message: "Producto no encontrado" });
+      console.log("Product not found in the database");
+      res.status(404).json({ message: "Product not found" });
     } else {
-      console.log("Producto encontrado:", product);
+      console.log("Product found:", product);
       res.status(200).json(product);
     }
   } catch (error) {
-    console.error("Error al obtener producto:", error);
-    res.status(500).json({ message: "Error al obtener producto" });
+    console.error("Error getting product:", error);
+    res.status(500).json({ message: "Error getting product" });
   }
 });
 
@@ -108,8 +108,8 @@ router.get('/seller/:userId', async (req: Request, res: Response) => {
     const products = await Product.find({ seller: userId }).populate('seller', 'name email');
     res.status(200).json(products);
   } catch (error) {
-    console.error("Error al obtener productos del vendedor:", error);
-    res.status(500).json({ message: "Error al obtener productos del vendedor" });
+    console.error("Error getting products from seller:", error);
+    res.status(500).json({ message: "Error getting products from seller" });
   }
 });
 
@@ -118,19 +118,19 @@ router.delete('/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    res.status(400).json({ message: 'ID no válido' });
+    res.status(400).json({ message: 'Invalid ID' });
   } else {
     try {
       const deletedProduct = await Product.findByIdAndDelete(id);
 
       if (!deletedProduct) {
-        res.status(404).json({ message: 'Producto no encontrado' });
+        res.status(404).json({ message: 'Product not found' });
       } else {
-        res.status(200).json({ message: 'Producto eliminado correctamente' });
+        res.status(200).json({ message: 'Product successfully removed' });
       }
     } catch (error) {
-      console.error('Error al eliminar producto:', error);
-      res.status(500).json({ message: 'Error al eliminar producto' });
+      console.error('Error deleting product:', error);
+      res.status(500).json({ message: 'Error deleting product' });
     }
   }
 });

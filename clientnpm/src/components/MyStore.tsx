@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router"; 
-
+const API_URL = import.meta.env.VITE_API_URL;
 interface Product {
   _id: string;
   name: string;
@@ -24,7 +24,7 @@ const MyStore = () => {
     const fetchProducts = async () => {
       try {
         const res = await axios.get(
-          `https://mb-45-mongo-db.vercel.app/api/products/seller/${user._id}`,
+          `${API_URL}products/seller/${user._id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -45,21 +45,21 @@ const MyStore = () => {
   const handleDelete = async (productId: string) => {
     if (!token) return;
 
-    const confirm = window.confirm("¿Estás seguro de que deseas eliminar este producto?");
+    const confirm = window.confirm("Are you sure you want to delete this product?");
     if (!confirm) return;
 
     try {
-      await axios.delete(`https://mb-45-mongo-db.vercel.app/api/products/${productId}`, {
+      await axios.delete(`${API_URL}products/${productId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       setProducts((prev) => prev.filter((product) => product._id !== productId));
-      alert("Producto eliminado correctamente.");
+      alert("Product successfully removed.");
     } catch (err) {
-      console.error("Error al eliminar producto:", err);
-      alert("Hubo un error al eliminar el producto.");
+      console.error("Error deleting product:", err);
+      alert("There was an error deleting the product.");
     }
   };
 

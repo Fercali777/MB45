@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router";
 import AddToCartButton from "./AddToCartButton";
-
+const API_URL = import.meta.env.VITE_API_URL;
 interface Product {
   _id: string;
   name: string;
@@ -21,7 +21,7 @@ const ProductList = () => {
     const fetchProducts = async () => {
       try {
         console.log("Making the request to /api/products...");
-        const res = await axios.get("https://mb-45-mongo-db.vercel.app/api/products");
+        const res = await axios.get(`${API_URL}/products`);
         console.log("Products received:", res.data);
         setProducts(res.data);
       } catch (err) {

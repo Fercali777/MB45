@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
-
+const API_URL = import.meta.env.VITE_API_URL;
 const ProductForm = () => {
   const { token } = useContext(AuthContext);
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -55,7 +55,7 @@ const handleChange = (
     }
 
     try {
-      await axios.post("https://mb-45-mongo-db.vercel.app/api/products/add", data, {
+      await axios.post(`${API_URL}/products/add`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

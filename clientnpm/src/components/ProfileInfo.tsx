@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const ProfileInfo: React.FC = () => {
   const { user, token } = useAuth();
@@ -20,7 +21,7 @@ const ProfileInfo: React.FC = () => {
   useEffect(() => {
     if (user && token) {
       axios
-        .get("https://mb-45-mongo-db.vercel.app/api/auth/me", {
+        .get(`${API_URL}/auth/me`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
@@ -38,7 +39,7 @@ const ProfileInfo: React.FC = () => {
           });
         })
         .catch((error) => {
-          console.error("Error al obtener el perfil del usuario:", error);
+          console.error("Error getting user profile:", error);
         });
     }
   }, [user, token]);
@@ -52,7 +53,7 @@ const ProfileInfo: React.FC = () => {
     e.preventDefault();
     try {
       await axios.put(
-  "https://mb-45-mongo-db.vercel.app/api/auth/update",
+  `${API_URL}/auth/update`,
   formData,
   {
     headers: {
@@ -61,10 +62,10 @@ const ProfileInfo: React.FC = () => {
   }
 );
 
-setMessage("Perfil actualizado correctamente.");
+setMessage("Profile updated successfully.");
     } catch (error) {
-      console.error("Error al actualizar el perfil:", error);
-      setMessage("Error al actualizar el perfil.");
+      console.error("Error updating profile:", error);
+      setMessage("Error updating profile:");
     }
   };
 

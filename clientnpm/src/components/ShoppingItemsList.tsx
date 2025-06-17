@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-
+const API_URL = import.meta.env.VITE_API_URL;
 interface Product {
   _id: string;
   name: string;
@@ -32,8 +32,8 @@ export const ShoppingItemsList = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  if (loadingUser) return <p>Cargando usuario...</p>;
-  if (!user) return <p>Debes iniciar sesión para ver tu lista de compras.</p>;
+  if (loadingUser) return <p>Loading user...</p>;
+  if (!user) return <p>You must log in to view your shopping list.</p>;
   if (user.role !== "buyer")
     return <p>Only users with the buyer role can access the list.</p>;
 
@@ -43,18 +43,18 @@ export const ShoppingItemsList = () => {
       setError(null);
 
       try {
-        const res = await fetch("https://mb-45-mongo-db.vercel.app/api/shopping", {
+        const res = await fetch(`${API_URL}/shopping`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
-        if (!res.ok) throw new Error("Error al cargar lista de compras");
+        if (!res.ok) throw new Error("Error loading shopping list");
 
         const data: ShoppingItem[] = await res.json();
         setItems(data);
       } catch (err: any) {
-        setError(err.message || "Error inesperado");
+        setError(err.message || "Unexpected error");
       } finally {
         setLoading(false);
       }
@@ -65,28 +65,28 @@ export const ShoppingItemsList = () => {
 
   const handleRemove = async (id: string) => {
     try {
-      const res = await fetch(`https://mb-45-mongo-db.vercel.app/api/shopping/${id}`, {
+      const res = await fetch(`${API_URL}/shopping/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      if (!res.ok) throw new Error("Error al eliminar producto");
+      if (!res.ok) throw new Error("Error deleting product");
 
       setItems((prev) => prev.filter((item) => item._id !== id));
     } catch (err) {
-      alert("Error al eliminar producto");
+      alert("Error deleting product");
     }
   };
 
-  if (loading) return <p>Cargando lista de compras...</p>;
+  if (loading) return <p>Loading shopping list...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <div>
       <h1>My Shopping List</h1>
-      {items.length === 0 && <p>Tu lista está vacía.</p>}
+      {items.length === 0 && <p>Your list is empty.</p>}
       <ul style={{ listStyleType: "none", padding: 0 }}>
         {items.map(({ _id, productId, quantity }) => (
           <li

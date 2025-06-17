@@ -4,7 +4,7 @@ import axios from "axios";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 import AddToCartButton from "./AddToCartButton";
-
+const API_URL = import.meta.env.VITE_API_URL;
 interface Product {
   _id: string;
   name: string;
@@ -36,7 +36,7 @@ const ProductDetail = () => {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(
-          `https://mb-45-mongo-db.vercel.app/api/products/${productId}`
+          `${API_URL}/products/${productId}`
         );
         setProduct(res.data);
       } catch (err) {
