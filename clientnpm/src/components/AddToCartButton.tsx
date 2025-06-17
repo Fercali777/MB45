@@ -5,7 +5,7 @@ interface AddToCartButtonProps {
   quantity?: number;
   className?: string;
 }
-
+const API_URL = import.meta.env.VITE_API_URL;
 const AddToCartButton = ({ productId, quantity = 1, className = "button-1 bt-orange" }: AddToCartButtonProps) => {
   const handleAddToCart = async () => {
     try {
@@ -17,7 +17,8 @@ const AddToCartButton = ({ productId, quantity = 1, className = "button-1 bt-ora
       }
 
       const res = await axios.post(
-        "https://mb-45-mongo-db.vercel.app/api/shopping/add",
+        `${API_URL}/shopping/add`,
+       
         { productId, quantity },
         {
           headers: {
