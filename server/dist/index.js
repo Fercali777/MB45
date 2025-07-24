@@ -12,6 +12,7 @@ const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 const productRoutes_1 = __importDefault(require("./routes/productRoutes"));
 const commentRoutes_1 = __importDefault(require("./routes/commentRoutes"));
 const shoppingRoutes_1 = __importDefault(require("./routes/shoppingRoutes"));
+const favoriteRoutes_1 = __importDefault(require("./routes/favoriteRoutes"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 5000;
 // Middleware
@@ -26,6 +27,7 @@ app.use('/api/auth', userRoutes_1.default);
 app.use('/api/products', productRoutes_1.default);
 app.use('/api/comments', commentRoutes_1.default);
 app.use("/api/shopping", shoppingRoutes_1.default);
+app.use("/api/favorites", favoriteRoutes_1.default);
 // Ruta de prueba
 app.get('/', (req, res) => {
     res.send('Server Working');

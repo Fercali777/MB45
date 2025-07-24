@@ -4,10 +4,11 @@ import ProfileInfo from "../components/ProfileInfo";
 import ProductForm from "../components/ProductForm";
 import { ShoppingItemsList } from "../components/ShoppingItemsList";
 import MyStore from "../components/MyStore";
+import MyFavorites from "../components/MyFavorites";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
-  const [activeSection, setActiveSection] = useState<"settings" | "ShoppingCart" | "store" | "add">("add");
+  const [activeSection, setActiveSection] = useState<"settings" | "ShoppingCart" | "store" | "add" | "favorites">("add");
   const isSeller = user?.role === "seller";
   const isBuyer = user?.role === "buyer";
 
@@ -43,6 +44,12 @@ const Dashboard = () => {
             <ProfileInfo />
           </>
         );
+      case "favorites":
+        return (
+          <>
+            <MyFavorites />
+          </>
+        );
       default:
         return null;
     }
@@ -63,12 +70,20 @@ const Dashboard = () => {
 
             {/* Show only for buyers */}
             {isBuyer && (
-              <button
-                className={btnClass("ShoppingCart")}
-                onClick={() => setActiveSection("ShoppingCart")}
-              >
-                Shopping Cart
-              </button>
+              <>
+                <button
+                  className={btnClass("ShoppingCart")}
+                  onClick={() => setActiveSection("ShoppingCart")}
+                >
+                  Shopping Cart
+                </button>
+                <button
+                  className={btnClass("favorites")}
+                  onClick={() => setActiveSection("favorites")}
+                >
+                  My Favorites
+                </button>
+              </>
             )}
 
             {/* Only visible for seller */}

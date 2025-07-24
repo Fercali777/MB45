@@ -18,6 +18,7 @@
 
 .product-picture-list {
   width: 100%;
+  height: 300px;
 }
 
 .products-car img {
@@ -95,6 +96,34 @@
 .product-buttons .button-like {
   margin-bottom: 0;
   flex-shrink: 0;
+}
+
+/* Favorite Button Styles */
+.button-like {
+  width: 45px;
+  background: transparent;
+  border: 2px solid #273642;
+  color: #273642;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 18px;
+  padding: 8px 12px;
+}
+
+.button-like:hover {
+  background: #273642;
+  color: white;
+}
+
+.button-like.active {
+  background: #ff5b40;
+  border-color: #ff5b40;
+  color: white;
+}
+
+.button-like.active:hover {
+  background: #e04a30;
+  border-color: #e04a30;
 }
 
 /* Responsive adjustments for product components */

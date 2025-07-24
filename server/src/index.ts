@@ -8,6 +8,7 @@ import userRoutes from './routes/userRoutes';
 import productRoutes from './routes/productRoutes';
 import commentRoutes from './routes/commentRoutes'; 
 import shoppingRoutes from "./routes/shoppingRoutes";
+import favoriteRoutes from "./routes/favoriteRoutes";
 
 
 
@@ -29,6 +30,7 @@ app.use('/api/auth', userRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/comments', commentRoutes);
 app.use("/api/shopping", shoppingRoutes);
+app.use("/api/favorites", favoriteRoutes);
 
 
 

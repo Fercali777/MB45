@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router";
 import AddToCartButton from "./AddToCartButton";
+import FavoriteButton from "./FavoriteButton";
 import "./product-list.css";
 const API_URL = import.meta.env.VITE_API_URL;
 interface Product {
@@ -79,7 +80,7 @@ const ProductList = () => {
               >
                 DETAILS
               </Link>
-              <a href="#" className="button-like bt-black"></a>
+              <FavoriteButton productId={product._id} />
             </div>
           </div>
         </section>

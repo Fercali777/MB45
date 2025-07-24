@@ -11,6 +11,7 @@ export interface IUser extends Document {
   country: string;
   postCode: string;
   role: 'seller' | 'buyer';
+  favorites: mongoose.Types.ObjectId[];
 }
 
 // Define el esquema usando la interfaz
@@ -24,6 +25,7 @@ const userSchema: Schema<IUser> = new Schema({
   country: { type: String, required: true },
   postCode: { type: String, required: true },
   role: { type: String, enum: ['seller', 'buyer'], default: 'seller', required: true },
+  favorites: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
 });
 
 // Exporta el modelo tipado
