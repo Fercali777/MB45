@@ -32,34 +32,34 @@ const Carousel: React.FC<CarouselProps> = ({ slides }) => {
   }
 
   return (
-    <section className="slider">
-      <nav className="slider-nar left" onClick={goToPrev}>
+    <section className="sliderMB">
+      <nav className="slider-narMB left" onClick={goToPrev}>
         <img src="/img/slider-nar-L.png" alt="Previous" />
       </nav>
       
-      <div className="carousel-viewport">
+      <div className="carousel-viewportMB">
         <div
-          className="carousel-track"
+          className="carousel-trackMB"
           style={{ transform: `translateX(-${current * 33.333}%)` }}
         >
           {slides.map((slide, idx) => (
-            <div className="carousel-item" key={idx}>
+            <div className="carousel-itemMB" key={idx}>
               {slide}
             </div>
           ))}
         </div>
       </div>
       
-      <nav className="slider-nar right" onClick={goToNext}>
+      <nav className="slider-narMB right" onClick={goToNext}>
         <img src="/img/slider-nar-R.png" alt="Next" />
       </nav>
       
       {/* Carousel indicators */}
-      <div className="carousel-indicators">
+      <div className="carousel-indicatorsMB">
         {slides.map((_, idx) => (
           <button
             key={idx}
-            className={`indicator ${idx === current ? 'active' : ''}`}
+            className={`indicatorMB ${idx === current ? 'active' : ''}`}
             onClick={() => setCurrent(idx)}
           />
         ))}
