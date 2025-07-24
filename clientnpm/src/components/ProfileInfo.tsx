@@ -164,25 +164,87 @@ const ProfileInfo: React.FC = () => {
       <h2>Change my profile information</h2>
 
       <div class="grid-2-col-form">
+
         <div>
           <button className="button-edit bt-black" type="submit">Edit</button>
-          <input
-            type="text"
-            name="name"
-            placeholder="Name"
-            value={formData.name}
-            onChange={handleChange}
-          />
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          value={formData.name}
+          onChange={handleChange}
+        />
         </div>
         <div>
           <button className="button-edit bt-black" type="submit">Edit</button>
-          <input
-            type="text"
-            name="name"
-            placeholder="Name"
-            value={formData.name}
-            onChange={handleChange}
-          />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+        </div>
+        <div>
+          <button className="button-edit bt-black" type="submit">Edit</button>
+        <input
+          type="text"
+          name="phone"
+          placeholder="Phone Number"
+          value={formData.phone}
+          onChange={handleChange}
+        />
+        </div>
+        <div>
+          <button className="button-edit bt-black" type="submit">Edit</button>
+        <input
+          type="text"
+          name="address"
+          placeholder="Address"
+          value={formData.address}
+          onChange={handleChange}
+        />
+        </div>
+        <div>
+          <button className="button-edit bt-black" type="submit">Edit</button>
+        <input
+          type="text"
+          name="city"
+          placeholder="City"
+          value={formData.city}
+          onChange={handleChange}
+        />
+        </div>
+        <div>
+          <button className="button-edit bt-black" type="submit">Edit</button>
+        <input
+          type="text"
+          name="country"
+          placeholder="Country"
+          value={formData.country}
+          onChange={handleChange}
+        />
+        </div>
+        <div>
+          <button className="button-edit bt-black" type="submit">Edit</button>
+        <input
+          type="text"
+          name="postCode"
+          placeholder="Post Code"
+          value={formData.postCode}
+          onChange={handleChange}
+        />
+        </div>
+        <div>
+          <button className="button-edit bt-black" type="submit">Edit</button>
+        <input
+          type="text"
+          name="role"
+          placeholder="Role"
+          value={formData.role}
+          onChange={handleChange}
+          disabled
+        />
         </div>
       </div>
     </div>
