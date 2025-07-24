@@ -25,10 +25,10 @@ const CommentList = ({ productId }: CommentListProps) => {
         if (Array.isArray(res.data)) {
           setComments(res.data);
         } else {
-          console.error("Comentarios no son un array:", res.data);
+          console.error("Comments are not an array:", res.data);
         }
       } catch (err) {
-        console.error("Error al obtener comentarios:", err);
+        console.error("Error getting comments:", err);
       } finally {
         setLoading(false);
       }

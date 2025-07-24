@@ -33,12 +33,12 @@ const ProductList = () => {
           setProducts(res.data);
         } else {
           console.error("API returned non-array data:", res.data);
-          setError("Error: Los datos recibidos no son válidos");
+          setError("Error: Invalid data received");
           setProducts([]);
         }
       } catch (err) {
         console.error("Error getting products:", err);
-        setError("Error al cargar los productos");
+        setError("Error loading products");
         setProducts([]);
       } finally {
         setLoading(false);
@@ -51,9 +51,9 @@ const ProductList = () => {
   console.log("Current products state:", products);
   console.log("Is products array?", Array.isArray(products));
 
-  if (loading) return <p>Cargando productos...</p>;
+  if (loading) return <p>Loading products...</p>;
   if (error) return <p>Error: {error}</p>;
-  if (!Array.isArray(products)) return <p>Error: Formato de datos inválido</p>;
+  if (!Array.isArray(products)) return <p>Error: Invalid data format</p>;
 
   return (
     <div className="grid-3-col">

@@ -86,7 +86,7 @@ const MyStore = () => {
   return (
     <div className="grid-3-col">
       {!Array.isArray(products) ? (
-        <p>Error: Formato de datos inválido</p>
+        <p>Error: Invalid data format</p>
       ) : products.length === 0 ? (
         <p>You have no products created yet.</p>
       ) : (

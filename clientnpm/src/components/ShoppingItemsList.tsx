@@ -59,7 +59,7 @@ export const ShoppingItemsList = () => {
           setItems(data);
         } else {
           console.error("API returned non-array data:", data);
-          setError("Error: Los datos recibidos no son válidos");
+          setError("Error: Invalid data received");
           setItems([]);
         }
       } catch (err: any) {
@@ -91,7 +91,7 @@ export const ShoppingItemsList = () => {
 
   if (loading) return <p>Loading shopping list...</p>;
   if (error) return <p>Error: {error}</p>;
-  if (!Array.isArray(items)) return <p>Error: Formato de datos inválido</p>;
+  if (!Array.isArray(items)) return <p>Error: Invalid data format</p>;
 
   return (
     <div>

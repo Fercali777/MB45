@@ -74,6 +74,9 @@ test-results/
 .eslintcache
 stylelintcache
 
+# --- Cursor AI ---
+.cursorrules
+
 # --- Optional uploads/temp folders ---
 server/uploads/
 tmp/

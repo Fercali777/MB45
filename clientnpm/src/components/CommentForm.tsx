@@ -27,7 +27,7 @@ const CommentForm = ({ productId, onCommentAdded }: Props) => {
       setText('');
       onCommentAdded();
     } catch (err) {
-      console.error('Error al enviar comentario:', err);
+              console.error('Error sending comment:', err);
     }
   };
 

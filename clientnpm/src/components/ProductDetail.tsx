@@ -41,7 +41,7 @@ const ProductDetail = () => {
         );
         setProduct(res.data);
       } catch (err) {
-        console.error("Error al obtener producto:", err);
+        console.error("Error getting product:", err);
       } finally {
         setLoading(false);
       }
@@ -52,8 +52,8 @@ const ProductDetail = () => {
     }
   }, [productId]);
 
-  if (loading) return <p>Cargando producto...</p>;
-  if (!product) return <p>Producto no encontrado.</p>;
+  if (loading) return <p>Loading product...</p>;
+  if (!product) return <p>Product not found.</p>;
 
   return (
     <div className="container">
@@ -73,7 +73,7 @@ const ProductDetail = () => {
             <h3>{product.price} €</h3>
             <p>{product.description}</p>
             <p>
-              <strong>Categoría:</strong> {product.category}
+              <strong>Category:</strong> {product.category}
             </p>
             <p>
               <strong>Material:</strong> {product.mainMaterial}
@@ -82,15 +82,15 @@ const ProductDetail = () => {
               <strong>Color:</strong> {product.color}
             </p>
             <p>
-              <strong>Dimensiones:</strong> {product.width}x{product.height}x
+              <strong>Dimensions:</strong> {product.width}x{product.height}x
               {product.depth} cm
             </p>
             <p>
-              <strong>Stock disponible:</strong> {product.stock}
+              <strong>Available Stock:</strong> {product.stock}
             </p>
             {product.seller && (
               <p>
-                <strong>Vendedor:</strong> {product.seller.name} (
+                <strong>Seller:</strong> {product.seller.name} (
                 {product.seller.email})
               </p>
             )}
@@ -99,7 +99,7 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      {/* Comentarios */}
+      {/* Comments */}
       {productId && (
         <>
           <CommentForm

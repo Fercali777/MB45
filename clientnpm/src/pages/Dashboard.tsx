@@ -61,7 +61,7 @@ const Dashboard = () => {
               Settings
             </button>
 
-            {/* Mostrar solo para buyers */}
+            {/* Show only for buyers */}
             {isBuyer && (
               <button
                 className={btnClass("ShoppingCart")}
@@ -71,7 +71,7 @@ const Dashboard = () => {
               </button>
             )}
 
-            {/* Solo visible para seller */}
+            {/* Only visible for seller */}
             {isSeller && (
               <>
                 <button
