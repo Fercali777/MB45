@@ -114,7 +114,10 @@ footer {
 
 @media (max-width: 768px) {
   header {
-    flex-direction: column;
+    flex-direction: row;
+  }
+  footer {
+    margin-top: 100px;
   }
   
   .main-menu {

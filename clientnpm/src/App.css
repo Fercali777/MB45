@@ -174,7 +174,9 @@ ul {
 
 /* Utility Elements */
 .slider-text hr {
-  border: 0, 5px solid white;
+  border: 0.5px solid white;
+  opacity: 1;
+  background: white;
 }
   
 /* Responsive Design */

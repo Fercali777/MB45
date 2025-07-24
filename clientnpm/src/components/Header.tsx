@@ -11,7 +11,7 @@ const isHome = location.pathname === "/";
     <header className="flex">
       <div className="logo">
         <Link to="/" className="logo">
-          <img src={isHome ? "img/logoMB45-n.png" : "img/logoMB45.png"}
+          <img src={isHome ? "/img/logoMB45-n.png" : "/img/logoMB45.png"}
             alt="logo MB45" />
         </Link>
       </div>
@@ -21,10 +21,10 @@ const isHome = location.pathname === "/";
       </nav>
       <nav className="right-menu flex">
         <Link to="/Dashboard" className="nav-item" title="Profile">
-          <img src="img/i-user.png"  alt="User Profile" className="icon-main-menu" />
+          <img src="/img/i-user.png"  alt="User Profile" className="icon-main-menu" />
         </Link>
         <Link to="/ShoppingList" className="nav-item" title="Shopping Car">
-          <img src="img/i-car.png" alt="Shopping Car" className="icon-main-menu" />
+          <img src="/img/i-car.png" alt="Shopping Car" className="icon-main-menu" />
         </Link>
         <div className="logout-button"><LogoutButton /></div>
       </nav>

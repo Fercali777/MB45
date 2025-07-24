@@ -13,7 +13,7 @@ const RegisterPage = () => {
               <p>I already have an acount I wanna log in <Link to="/login" className="nav-item">click here</Link></p>
               </div>
               <div className="col-lg-6 col-sm-12">
-              <img className="imgFormular" src="img/furnituresRegister.png"></img>
+              <img className="imgFormular" src="/img/furnituresRegister.png"></img>
               </div>
         </div>
       </div>

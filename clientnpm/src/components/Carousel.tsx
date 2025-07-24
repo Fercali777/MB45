@@ -18,11 +18,11 @@ const Carousel: React.FC<CarouselProps> = ({ slides }) => {
     setCurrent((prev) => (prev + 1) % slides.length);
   };
 
-  // Auto-advance carousel every 5 seconds
+  // Auto-advance carousel every 40 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       goToNext();
-    }, 5000);
+    }, 40000);
 
     return () => clearInterval(interval);
   }, [slides.length]);
