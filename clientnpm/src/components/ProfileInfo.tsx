@@ -27,7 +27,7 @@ const ProfileInfo: React.FC = () => {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
-          console.log("Datos del usuario:", response.data); 
+          console.log("Datos del usuario:", response.data);
           const data = response.data;
           setFormData({
             name: data.user.name || "",
@@ -55,16 +55,16 @@ const ProfileInfo: React.FC = () => {
     e.preventDefault();
     try {
       await axios.put(
-  `${API_URL}/auth/update`,
-  formData,
-  {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }
-);
+        `${API_URL}/auth/update`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-setMessage("Profile updated successfully.");
+      setMessage("Profile updated successfully.");
     } catch (error) {
       console.error("Error updating profile:", error);
       setMessage("Error updating profile:");
@@ -74,23 +74,29 @@ setMessage("Profile updated successfully.");
   return (
     <div>
       <div>
-{token ? (
-  <div>
-    <p>Name: {formData.name}</p>
-    <p>Email: {formData.email}</p>
-    <p>Phone Number: {formData.phone}</p>
-    <p>
-      Address:
-      {[formData.address, formData.city, formData.country].filter(Boolean).join(", ")}
-      {formData.postCode && ` (${formData.postCode})`}
-    </p>
-    <p>Role: {formData.role}</p>
-  </div>
-) : (
-  <p>You are not logged in</p>
-)}
+        {token ? (
+          <div>
+            <h2>My profile information</h2>
+            <p>Name: {formData.name}</p>
+            <p>Email: {formData.email}</p>
+            <p>Phone Number: {formData.phone}</p>
+            <p>
+              Address:
+              {[formData.address, formData.city, formData.country].filter(Boolean).join(", ")}
+              {formData.postCode && ` (${formData.postCode})`}
+            </p>
+            <p>Role: {formData.role}</p>
+          </div>
+        ) : (
+          <p>You are not logged in</p>
+        )}
       </div>
-      <h2>Change my profile information</h2>
+
+
+
+
+
+      <h2>Change information</h2>
       {message && <p>{message}</p>}
       <form className="wrap flex gap1" onSubmit={handleSubmit}>
         <input
@@ -154,6 +160,31 @@ setMessage("Profile updated successfully.");
           Save changes{" "}
         </button>
       </form>
+
+      <h2>Change my profile information</h2>
+
+      <div class="grid-2-col-form">
+        <div>
+          <button className="button-edit bt-black" type="submit">Edit</button>
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <button className="button-edit bt-black" type="submit">Edit</button>
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
     </div>
   );
 };
