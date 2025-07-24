@@ -1,3 +1,5 @@
+import './layout.css';
+
 const Footer = () => {
     return (
       <footer className="flex">

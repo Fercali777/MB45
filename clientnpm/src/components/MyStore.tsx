@@ -1,7 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
-import { Link } from "react-router"; 
+import { Link } from "react-router";
+import "./product-list.css";
+import "./buttons.css"; 
 const API_URL = import.meta.env.VITE_API_URL;
 interface Product {
   _id: string;
@@ -31,7 +33,13 @@ const MyStore = () => {
             },
           }
         );
-        setProducts(res.data);
+        
+        if (Array.isArray(res.data)) {
+          setProducts(res.data);
+        } else {
+          console.error("API returned non-array data:", res.data);
+          setProducts([]);
+        }
       } catch (err) {
         console.error("Error getting products from seller:", err);
       } finally {
@@ -77,7 +85,9 @@ const MyStore = () => {
 
   return (
     <div className="grid-3-col">
-      {products.length === 0 ? (
+      {!Array.isArray(products) ? (
+        <p>Error: Formato de datos inválido</p>
+      ) : products.length === 0 ? (
         <p>You have no products created yet.</p>
       ) : (
         products.map((product) => (

@@ -13,7 +13,7 @@ const router = express_1.default.Router();
 router.post("/add", auth_1.isAuth, async (req, res) => {
     const { productId, quantity = 1 } = req.body;
     if (!req.userId) {
-        res.status(401).json({ message: "No autorizado" });
+        res.status(401).json({ message: "Unauthorized" });
         // No return
     }
     try {
@@ -24,7 +24,7 @@ router.post("/add", auth_1.isAuth, async (req, res) => {
         if (existingItem) {
             existingItem.quantity += quantity;
             await existingItem.save();
-            res.status(200).json({ message: "Cantidad actualizada en el carrito." });
+            res.status(200).json({ message: "Quantity updated in cart." });
             // No return
         }
         else {
@@ -34,20 +34,20 @@ router.post("/add", auth_1.isAuth, async (req, res) => {
                 quantity,
             });
             await newItem.save();
-            res.status(201).json({ message: "Producto añadido al carrito." });
+            res.status(201).json({ message: "Product added to cart." });
             // No return
         }
     }
     catch (err) {
-        console.error("❌ Error al añadir producto al carrito:", err);
-        res.status(500).json({ message: "Error del servidor" });
+        console.error("Error adding product to cart:", err);
+        res.status(500).json({ message: "Server error" });
         // No return
     }
 });
 // GET /api/shopping
 router.get("/", auth_1.isAuth, async (req, res) => {
     if (!req.userId) {
-        res.status(401).json({ message: "No autorizado" });
+        res.status(401).json({ message: "Unauthorized" });
         // No return
     }
     try {
@@ -56,15 +56,15 @@ router.get("/", auth_1.isAuth, async (req, res) => {
         // No return
     }
     catch (err) {
-        console.error("❌ Error al obtener el carrito:", err);
-        res.status(500).json({ message: "Error del servidor" });
+        console.error(" Error getting cart:", err);
+        res.status(500).json({ message: "EServer error" });
         // No return
     }
 });
 // DELETE /api/shopping/:id
 router.delete("/:id", auth_1.isAuth, async (req, res) => {
     if (!req.userId) {
-        res.status(401).json({ message: "No autorizado" });
+        res.status(401).json({ message: "Unauthorized" });
         // No return
     }
     try {
@@ -73,17 +73,17 @@ router.delete("/:id", auth_1.isAuth, async (req, res) => {
             userId: req.userId,
         });
         if (!item) {
-            res.status(404).json({ message: "Producto no encontrado en el carrito." });
+            res.status(404).json({ message: "Product not found in the cart." });
             // No return
         }
         else {
-            res.json({ message: "Producto eliminado del carrito." });
+            res.json({ message: "Product removed from cart." });
             // No return
         }
     }
     catch (err) {
-        console.error("❌ Error al eliminar producto del carrito:", err);
-        res.status(500).json({ message: "Error del servidor" });
+        console.error("Error deleting product from cart:", err);
+        res.status(500).json({ message: "Server error" });
         // No return
     }
 });

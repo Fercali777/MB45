@@ -1,0 +1,53 @@
+/* Buttons Component Styles */
+
+.button-1,
+.button-like {
+  box-sizing: border-box;
+  margin-right: 10px;
+  padding: 10px 25px 10px 25px;
+  font-family: Consolas, Menlo, Courier New;
+  text-decoration: none;
+  margin-bottom: 40px;
+  min-height: 40px;
+  border: none;
+  text-transform: uppercase;
+}
+
+.buttonDash {
+  box-sizing: border-box;
+  margin-right: 10px;
+  padding: 10px 25px 10px 25px;
+  font-family: Consolas, Menlo, Courier New;
+  text-decoration: none;
+  margin-bottom: 24px;
+  min-height: 40px;
+  border: none;
+  text-align: left;
+  background-image: url("/img/nar.png");
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+}
+
+.button-like {
+  background-image: url("/img/i-heart.png");
+  background-size: 15px;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 10px 20px 10px 20px;
+}
+
+/* Button Variants */
+.bt-black {
+  background-color: #273642;
+  color: #ff5b40;
+}
+
+.bt-orange {
+  background-color: #ff5b40;
+  color: white !important;
+}
+
+.bt-cream {
+  background-color: #F2EAB3;
+  color: #59636A;
+} 

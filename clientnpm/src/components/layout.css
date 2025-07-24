@@ -1,0 +1,123 @@
+/* Layout Component Styles */
+
+/* Header */
+header {
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 30px 30px 30px;
+  flex-direction: row;
+}
+
+.logo {
+  min-width: 150px;
+  max-width: 250px;
+}
+
+.logo img {
+  width: 100%;
+}
+
+.main-menu {
+  flex-grow: 1;
+  padding-left: 40px;
+  min-height: 20px;
+  margin: 30px 0px 30px 0px;
+}
+
+.main-menu a {
+  text-decoration: none;
+}
+
+.nav-item {
+  flex-shrink: 0;
+  padding: 5px 10px 5px 10px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 16px;
+  transition: padding-right 2s, padding-left 2s;
+}
+
+.back-negative .nav-item {
+  color: #ffff;
+}
+
+.back-positiv .nav-item {
+  color: #273642;
+}
+
+.nav-item-selected {
+  background-color: #273642;
+  color: #f9f7e8 !important;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.right-menu {
+  min-height: 20px;
+  justify-content: space-between;
+}
+
+.icon-main-menu {
+  width: 20px;
+}
+
+/* Footer */
+footer {
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f6563d;
+  margin-top: 100px;
+  padding: 3px 30px 3px 30px;
+}
+
+.logo-footer {
+  max-width: 30px;
+  max-height: 30px;
+}
+
+.logo-footer img {
+  width: 100%;
+}
+
+.copy {
+  font-family: Consolas, Menlo, Courier New;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+/* Navigation Buttons */
+.backHome {
+  background-color: #ff5b40;
+}
+
+.backHome a {
+  color: #ffff;
+}
+
+.backPositiv {
+  background-color: #f9f7e8;
+}
+
+.backPositiv a {
+  color: #273642;
+}
+
+.logout-button {
+  margin-left: 20px;
+}
+
+/* Responsive adjustments for layout */
+@media (max-width: 1280px) {
+  header {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+  }
+  
+  .main-menu {
+    padding-left: 0px;
+  }
+} 

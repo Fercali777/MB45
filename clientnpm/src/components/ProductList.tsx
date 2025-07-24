@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router";
 import AddToCartButton from "./AddToCartButton";
+import "./product-list.css";
 const API_URL = import.meta.env.VITE_API_URL;
 interface Product {
   _id: string;
@@ -16,6 +17,7 @@ interface Product {
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -23,9 +25,21 @@ const ProductList = () => {
         console.log("Making the request to /api/products...");
         const res = await axios.get(`${API_URL}/products`);
         console.log("Products received:", res.data);
-        setProducts(res.data);
+        console.log("Type of res.data:", typeof res.data);
+        console.log("Is Array?", Array.isArray(res.data));
+        
+        // Verificar que res.data sea un array
+        if (Array.isArray(res.data)) {
+          setProducts(res.data);
+        } else {
+          console.error("API returned non-array data:", res.data);
+          setError("Error: Los datos recibidos no son válidos");
+          setProducts([]);
+        }
       } catch (err) {
         console.error("Error getting products:", err);
+        setError("Error al cargar los productos");
+        setProducts([]);
       } finally {
         setLoading(false);
       }
@@ -34,7 +48,12 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
+  console.log("Current products state:", products);
+  console.log("Is products array?", Array.isArray(products));
+
   if (loading) return <p>Cargando productos...</p>;
+  if (error) return <p>Error: {error}</p>;
+  if (!Array.isArray(products)) return <p>Error: Formato de datos inválido</p>;
 
   return (
     <div className="grid-3-col">
@@ -52,14 +71,16 @@ const ProductList = () => {
             <h4>{product.price} €</h4>
             <p>{product.category}</p>
             {product.description && <p>{product.description}</p>}
-            {product._id && <AddToCartButton productId={product._id} />}
-            <Link
-              to={`/products/${product._id}`}
-              className="button-1 bt-orange"
-            >
-              DETAILS
-            </Link>
-            <a href="#" className="button-like bt-black"></a>
+            <div className="product-buttons flex gap1">
+              {product._id && <AddToCartButton productId={product._id} />}
+              <Link
+                to={`/products/${product._id}`}
+                className="button-1 bt-orange"
+              >
+                DETAILS
+              </Link>
+              <a href="#" className="button-like bt-black"></a>
+            </div>
           </div>
         </section>
       ))}

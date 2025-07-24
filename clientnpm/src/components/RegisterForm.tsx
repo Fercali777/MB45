@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+import "./forms.css";
+import "./buttons.css";
 const API_URL = import.meta.env.VITE_API_URL;
 const RegisterForm = () => {
   const [formData, setFormData] = useState({

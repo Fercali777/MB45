@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express_1.default.json());
 // CORS para permitir conexión con frontend
 app.use((0, cors_1.default)({
-    origin: 'http://localhost:5173',
+    origin: ['https://mb-45-mongo-db-rg2t.vercel.app', 'http://localhost:5173'],
     credentials: true,
 }));
 // Rutas

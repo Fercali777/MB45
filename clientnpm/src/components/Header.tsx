@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router";
 import LogoutButton from "./LogOutButton";
+import "./layout.css";
 
 
 

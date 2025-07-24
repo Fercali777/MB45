@@ -1,0 +1,100 @@
+/* Forms Component Styles */
+
+/* Form Elements */
+input,
+select {
+  box-sizing: border-box;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #f2eab3;
+  padding: 15px 12px 15px 12px;
+  background-color: #fcfbf1;
+  font-family: Consolas, Menlo, Courier New;
+  font-size: 14px;
+  line-height: 22px;
+  color: #59636a;
+}
+
+label {
+  font-family: Consolas, Menlo, Courier New;
+  font-size: 14px;
+  line-height: 22px;
+  color: #59636a;
+}
+
+/* Payment Form */
+.payment-form {
+  gap: 20px 20px 20px 20px;
+}
+
+.payment-form p {
+  margin-block-end: 0px;
+  margin: 20px 0px 20px 0px;
+}
+
+.payment-form a {
+  float: right;
+}
+
+/* Contact Form */
+.contact-table {
+  font-family: Consolas, Menlo, Courier New;
+  font-size: 14px;
+  line-height: 22px;
+  margin-block-end: 40px;
+}
+
+.contact-table h3 {
+  margin-block-end: 0px;
+}
+
+.contact-table h5 {
+  margin-block-start: 0px;
+}
+
+.contact h5 {
+  margin-block-end: 0px;
+}
+
+.contact-table td {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 24px;
+  line-height: 32px;
+  padding: 6px 12px 6px 12px;
+}
+
+.content-contact {
+  align-items: center;
+}
+
+.imgFormular {
+  margin-top: -80px;
+}
+
+/* Grid Form Layouts */
+.grid-1-col-form {
+  display: inline-grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+.grid-2-col-form {
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+.e3in1 input {
+  width: 35%;
+}
+
+/* Responsive adjustments for forms */
+@media (max-width: 768px) {
+  .grid-2-col-form {
+    grid-template-columns: 1fr;
+  }
+} 

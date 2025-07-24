@@ -1,4 +1,7 @@
 import axios from "axios";
+import { useAlertModal } from "../hooks/useAlertModal";
+import AlertModal from "./AlertModal";
+import "./buttons.css";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -9,13 +12,18 @@ interface AddToCartButtonProps {
 }
 
 const AddToCartButton = ({ productId, quantity = 1, className = "button-1 bt-orange" }: AddToCartButtonProps) => {
+  const { alertState, showError, showSuccess, hideAlert } = useAlertModal();
+
   const handleAddToCart = async () => {
     try {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        alert("You must log in to add products to your cart");
-        return;
+        showError(
+          "Session required", 
+          "You must log in to add products to your cart."
+        );
+        return; 
       }
 
       const res = await axios.post(
@@ -28,18 +36,34 @@ const AddToCartButton = ({ productId, quantity = 1, className = "button-1 bt-ora
         }
       );
 
-      alert("Producto añadido al carrito!");
-      console.log("✅ Respuesta:", res.data);
+      showSuccess(
+        "Success!", 
+        "Product added to cart successfully."
+      );
+      console.log("Answer:", res.data);
     } catch (err) {
-      console.error("Error adding to cart:", err);
-      alert("Error adding to cart");
+      console.error("❌ Error adding to cart:", err);
+      showError(
+        "Error", 
+        "Error adding product to cart. Please try again."
+      );
     }
   };
 
   return (
-    <button className={className} onClick={handleAddToCart}>
-      ADD TO CART
-    </button>
+    <>
+      <button className={className} onClick={handleAddToCart}>
+        ADD TO CART
+      </button>
+      
+      <AlertModal
+        isOpen={alertState.isOpen}
+        onClose={hideAlert}
+        type={alertState.type}
+        title={alertState.title}
+        message={alertState.message}
+      />
+    </>
   );
 };
 

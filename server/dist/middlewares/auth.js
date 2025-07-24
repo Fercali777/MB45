@@ -8,7 +8,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const isAuth = (req, res, next) => {
     const token = req.header('Authorization')?.split(' ')[1];
     if (!token) {
-        res.status(401).json({ message: 'No token, autorización denegada' });
+        res.status(401).json({ message: 'No token, authorization denied' });
     }
     else {
         try {
@@ -18,11 +18,11 @@ const isAuth = (req, res, next) => {
                 next();
             }
             else {
-                res.status(401).json({ message: 'Token inválido' });
+                res.status(401).json({ message: 'Invalid token' });
             }
         }
         catch (err) {
-            res.status(401).json({ message: 'Token no válido' });
+            res.status(401).json({ message: 'Invalid token' });
         }
     }
 };

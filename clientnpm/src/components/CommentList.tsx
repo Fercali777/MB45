@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import "./product-list.css";
 const API_URL = import.meta.env.VITE_API_URL;
 interface Comment {
   _id: string;
@@ -20,7 +21,7 @@ const CommentList = ({ productId }: CommentListProps) => {
     const fetchComments = async () => {
       try {
         
-        const res = await axios.get(`${API_URL}comments/${productId}`);
+        const res = await axios.get(`${API_URL}/comments/${productId}`);
         if (Array.isArray(res.data)) {
           setComments(res.data);
         } else {

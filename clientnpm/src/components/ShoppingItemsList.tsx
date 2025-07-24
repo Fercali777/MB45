@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import "./product-list.css";
+import "./buttons.css";
 const API_URL = import.meta.env.VITE_API_URL;
 interface Product {
   _id: string;
@@ -52,7 +54,14 @@ export const ShoppingItemsList = () => {
         if (!res.ok) throw new Error("Error loading shopping list");
 
         const data: ShoppingItem[] = await res.json();
-        setItems(data);
+        
+        if (Array.isArray(data)) {
+          setItems(data);
+        } else {
+          console.error("API returned non-array data:", data);
+          setError("Error: Los datos recibidos no son válidos");
+          setItems([]);
+        }
       } catch (err: any) {
         setError(err.message || "Unexpected error");
       } finally {
@@ -82,6 +91,7 @@ export const ShoppingItemsList = () => {
 
   if (loading) return <p>Loading shopping list...</p>;
   if (error) return <p>Error: {error}</p>;
+  if (!Array.isArray(items)) return <p>Error: Formato de datos inválido</p>;
 
   return (
     <div>

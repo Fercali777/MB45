@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import "./buttons.css";
 
 const LoginLogoutButton = () => {
   const navigate = useNavigate();

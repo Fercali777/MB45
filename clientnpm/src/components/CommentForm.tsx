@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
+import './forms.css';
+import './buttons.css';
 const API_URL = import.meta.env.VITE_API_URL;
 
 interface Props {
@@ -14,7 +16,7 @@ const CommentForm = ({ productId, onCommentAdded }: Props) => {
     e.preventDefault();
     try {
       await axios.post(
-        `${API_URL}comments/${productId}`, // productId en la URL
+        `${API_URL}/comments/${productId}`, // productId en la URL
         { text }, // el backend espera "text", no "content"
         {
           headers: {

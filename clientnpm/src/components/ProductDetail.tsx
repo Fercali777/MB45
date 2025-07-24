@@ -4,6 +4,7 @@ import axios from "axios";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 import AddToCartButton from "./AddToCartButton";
+import "./product-list.css";
 const API_URL = import.meta.env.VITE_API_URL;
 interface Product {
   _id: string;

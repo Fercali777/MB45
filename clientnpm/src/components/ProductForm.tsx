@@ -1,9 +1,13 @@
 import { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import { useAlertModal } from "../hooks/useAlertModal";
+import AlertModal from "./AlertModal";
+import "./forms.css";
 const API_URL = import.meta.env.VITE_API_URL;
 const ProductForm = () => {
   const { token } = useContext(AuthContext);
+  const { alertState, showSuccess, showError, hideAlert } = useAlertModal();
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null); // Para la vista previa de la imagen
   const [formData, setFormData] = useState({
@@ -61,7 +65,7 @@ const handleChange = (
           "Content-Type": "multipart/form-data",
         },
       });
-      alert("Product added successfully");
+      showSuccess("Success", "Product added successfully");
     } catch (error: any) {
       console.error(error);
       alert(error.response?.data?.message || "Error adding product");
@@ -69,6 +73,7 @@ const handleChange = (
   };
 
   return (
+    <>
     <form onSubmit={handleSubmit} encType="multipart/form-data">
   <div className="grid-2-col-form">
     <input
@@ -174,6 +179,14 @@ const handleChange = (
     Add product
   </button>
 </form>
+    <AlertModal
+      isOpen={alertState.isOpen}
+      onClose={hideAlert}
+      type={alertState.type}
+      title={alertState.title}
+      message={alertState.message}
+    />
+    </>
   );
 };
 
