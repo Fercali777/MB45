@@ -105,6 +105,118 @@ footer {
   margin-left: 20px;
 }
 
+/* Mobile Menu Styles */
+.mobile-menu-button {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.mobile-menu a {
+  color: #273642;
+  ;
+}
+
+.hamburger-line {
+  width: 100%;
+  height: 3px;
+  background-color: #273642;
+  border-radius: 2px;
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 280px;
+  height: 100vh;
+  background-color: #f9f7e8;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.mobile-menu.open {
+  right: 0;
+}
+
+.mobile-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.mobile-menu-header h3 {
+  margin: 0;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 18px;
+  color: #273642;
+}
+
+.close-mobile-menu {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #273642;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-menu-items {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.mobile-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  text-decoration: none;
+  color: #273642;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.mobile-nav-item:hover {
+  background-color: #f2eab3;
+  border-color: #273642;
+}
+
+.mobile-nav-item img {
+  width: 20px;
+  height: 20px;
+}
+
+.mobile-menu-auth {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+}
+
 /* Responsive adjustments for layout */
 @media (max-width: 1280px) {
   header {
@@ -115,7 +227,22 @@ footer {
 @media (max-width: 768px) {
   header {
     flex-direction: row;
+    padding: 20px;
   }
+  
+  .desktop-menu {
+    display: none !important;
+  }
+  
+  .mobile-menu-button {
+    display: flex;
+  }
+  
+  .logo {
+    min-width: 120px;
+    max-width: 200px;
+  }
+  
   footer {
     margin-top: 100px;
   }

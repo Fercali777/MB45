@@ -108,6 +108,7 @@ ul {
 .display-mode h5, .display-mode span  {
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 8px 0px;
+  line-height: 28px;
 }
 
 /* Layout Utilities */
