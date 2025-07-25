@@ -5,7 +5,7 @@ export type AppUser = {
   _id: string;
   name: string;
   email: string;
-  role: "buyer" | "seller";
+  role: "buyer" | "seller" | "admin";
   phone: string;
   address: string;
   city: string;

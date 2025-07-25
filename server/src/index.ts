@@ -9,8 +9,7 @@ import productRoutes from './routes/productRoutes';
 import commentRoutes from './routes/commentRoutes'; 
 import shoppingRoutes from "./routes/shoppingRoutes";
 import favoriteRoutes from "./routes/favoriteRoutes";
-
-
+import adminRoutes from "./routes/adminRoutes";
 
 const app = express();
 
@@ -31,8 +30,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/comments', commentRoutes);
 app.use("/api/shopping", shoppingRoutes);
 app.use("/api/favorites", favoriteRoutes);
-
-
+app.use("/api/admin", adminRoutes);
 
 // Ruta de prueba
 app.get('/', (req: Request, res: Response) => {

@@ -167,4 +167,7 @@ label {
   .edit-buttons {
     flex-direction: column;
   }
+  .imgFormular {
+    display: none;
+  }
 } 

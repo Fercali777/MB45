@@ -10,7 +10,7 @@ export interface IUser extends Document {
   city: string;
   country: string;
   postCode: string;
-  role: 'seller' | 'buyer';
+  role: 'seller' | 'buyer' | 'admin';
   favorites: mongoose.Types.ObjectId[];
 }
 
@@ -24,7 +24,7 @@ const userSchema: Schema<IUser> = new Schema({
   city: { type: String, required: true },
   country: { type: String, required: true },
   postCode: { type: String, required: true },
-  role: { type: String, enum: ['seller', 'buyer'], default: 'seller', required: true },
+  role: { type: String, enum: ['seller', 'buyer', 'admin'], default: 'seller', required: true },
   favorites: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
 });
 

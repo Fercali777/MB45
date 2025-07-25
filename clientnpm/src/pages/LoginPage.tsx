@@ -15,7 +15,7 @@ const LoginPage = () => {
               <p>I don't have an account I want to register <Link to="/register" className="nav-item">click here</Link></p>
               </div>
               <div className="col-lg-6 col-sm-12">
-              <img className="imgFormular" src="/img/furnituresRegister.png"></img>
+              <img className="imgFormular hide-mobile" src="/img/furnituresRegister.png"></img>
               </div>
         </div>
       </div>

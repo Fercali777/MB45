@@ -10,10 +10,7 @@ import RegisterPage from "./pages/RegisterPage";
 import ShoppingList from "./pages/ShoppingList";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProductDetail from "./components/ProductDetail";
-
-
-// import ProtectedRoute from "./components/ProtectedRoute";
-
+import AdminPanel from "./components/AdminPanel";
 
 function App() {
   return (
@@ -31,6 +28,14 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="ShoppingList" element={<ShoppingList />} />
             <Route 
+              path="admin"
+              element={
+                <ProtectedRoute>
+                  <AdminPanel />
+                </ProtectedRoute>
+              }
+            />
+            <Route 
               path="dashboard-seller"
               element={
                 <ProtectedRoute>
@@ -44,7 +49,6 @@ function App() {
     </AuthContextProvider>
   );
 }
-
 
 export default App;
 
