@@ -88,9 +88,9 @@ const AlertModal: React.FC<AlertModalProps> = ({
             {config.icon.endsWith('.png') ? (
                   <img src={config.icon} alt="alert icon" className="alert-modal-icon" style={{ width: 24, height: 24 }} />
                 ) : (
-                  <span className="alert-modal-icon">{config.icon}</span>
+                <span className="alert-modal-icon">{config.icon}</span>
                 )}
-                              {showCloseButton && (
+              {showCloseButton && (
                 <button
                   type="button"
                   className="btn-close-up"
@@ -98,7 +98,7 @@ const AlertModal: React.FC<AlertModalProps> = ({
                   aria-label="Close"
                 />
               )}
-              </div>
+            </div>
 
              
             

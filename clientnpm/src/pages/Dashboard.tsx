@@ -1,4 +1,5 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
+import { useSearchParams } from "react-router";
 import { AuthContext } from "../context/AuthContext";
 import ProfileInfo from "../components/ProfileInfo";
 import ProductForm from "../components/ProductForm";
@@ -8,12 +9,26 @@ import MyFavorites from "../components/MyFavorites";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [activeSection, setActiveSection] = useState<"settings" | "ShoppingCart" | "store" | "add" | "favorites">("add");
   const isSeller = user?.role === "seller";
   const isBuyer = user?.role === "buyer";
 
+  // Check URL parameter for initial section
+  useEffect(() => {
+    const section = searchParams.get('section');
+    if (section && ['settings', 'ShoppingCart', 'store', 'add', 'favorites'].includes(section)) {
+      setActiveSection(section as typeof activeSection);
+    }
+  }, [searchParams]);
+
   const btnClass = (section: typeof activeSection) =>
     `buttonDash ${activeSection === section ? "bt-orange" : "bt-cream"}`;
+
+  const handleSectionChange = (section: typeof activeSection) => {
+    setActiveSection(section);
+    setSearchParams({ section });
+  };
 
   const renderContent = () => {
     switch (activeSection) {
@@ -63,7 +78,7 @@ const Dashboard = () => {
           <div className="flex flex-column gap-2">
             <button
               className={btnClass("settings")}
-              onClick={() => setActiveSection("settings")}
+              onClick={() => handleSectionChange("settings")}
             >
               Settings
             </button>
@@ -73,13 +88,13 @@ const Dashboard = () => {
               <>
                 <button
                   className={btnClass("ShoppingCart")}
-                  onClick={() => setActiveSection("ShoppingCart")}
+                  onClick={() => handleSectionChange("ShoppingCart")}
                 >
                   Shopping Cart
                 </button>
                 <button
                   className={btnClass("favorites")}
-                  onClick={() => setActiveSection("favorites")}
+                  onClick={() => handleSectionChange("favorites")}
                 >
                   My Favorites
                 </button>
@@ -91,13 +106,13 @@ const Dashboard = () => {
               <>
                 <button
                   className={btnClass("store")}
-                  onClick={() => setActiveSection("store")}
+                  onClick={() => handleSectionChange("store")}
                 >
                   My Store
                 </button>
                 <button
                   className={btnClass("add")}
-                  onClick={() => setActiveSection("add")}
+                  onClick={() => handleSectionChange("add")}
                 >
                   Add New Product
                 </button>

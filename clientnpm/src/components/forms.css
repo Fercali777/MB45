@@ -92,9 +92,79 @@ label {
   width: 35%;
 }
 
+/* Profile Info Component Styles */
+.field-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 15px;
+  border: 1px solid #f2eab3;
+  border-radius: 8px;
+  background-color: #fcfbf1;
+}
+
+.field-label {
+  font-weight: bold;
+  color: #273642;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.field-value {
+  font-family: Consolas, Menlo, Courier New;
+  font-size: 14px;
+  color: #59636a;
+  padding: 8px 0;
+  min-height: 20px;
+}
+
+.display-mode {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}
+
+.edit-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-buttons button {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+.message {
+  background-color: #f2eab3;
+  color: #273642;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-family: Consolas, Menlo, Courier New;
+  font-size: 14px;
+}
+
 /* Responsive adjustments for forms */
 @media (max-width: 768px) {
   .grid-2-col-form {
     grid-template-columns: 1fr;
+  }
+  
+  .display-mode {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .edit-buttons {
+    flex-direction: column;
   }
 } 

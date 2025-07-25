@@ -5,20 +5,30 @@ import "./forms.css";
 import "./buttons.css";
 const API_URL = import.meta.env.VITE_API_URL;
 
+interface FieldData {
+  name: string;
+  label: string;
+  type: string;
+  editable: boolean;
+  value: string;
+}
+
 const ProfileInfo: React.FC = () => {
   const { user, token } = useAuth();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-    country: "",
-    postCode: "",
-    role: "",
-  });
-
   const [message, setMessage] = useState("");
+  const [editingField, setEditingField] = useState<string | null>(null);
+  const [tempValue, setTempValue] = useState("");
+
+  const [fields, setFields] = useState<FieldData[]>([
+    { name: "name", label: "Name", type: "text", editable: true, value: "" },
+    { name: "email", label: "Email", type: "email", editable: true, value: "" },
+    { name: "phone", label: "Phone Number", type: "text", editable: true, value: "" },
+    { name: "address", label: "Address", type: "text", editable: true, value: "" },
+    { name: "city", label: "City", type: "text", editable: true, value: "" },
+    { name: "country", label: "Country", type: "text", editable: true, value: "" },
+    { name: "postCode", label: "Post Code", type: "text", editable: true, value: "" },
+    { name: "role", label: "Role", type: "text", editable: false, value: "" },
+  ]);
 
   useEffect(() => {
     if (user && token) {
@@ -27,18 +37,14 @@ const ProfileInfo: React.FC = () => {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
-          console.log("Datos del usuario:", response.data);
-          const data = response.data;
-          setFormData({
-            name: data.user.name || "",
-            email: data.user.email || "",
-            phone: data.user.phone || "",
-            address: data.user.address || "",
-            city: data.user.city || "",
-            country: data.user.country || "",
-            postCode: data.user.postCode || "",
-            role: data.user.role || "",
-          });
+          console.log("User data:", response.data);
+          const data = response.data.user;
+          setFields(prevFields =>
+            prevFields.map(field => ({
+              ...field,
+              value: data[field.name] || ""
+            }))
+          );
         })
         .catch((error) => {
           console.error("Error getting user profile:", error);
@@ -46,17 +52,21 @@ const ProfileInfo: React.FC = () => {
     }
   }, [user, token]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  const handleEdit = (fieldName: string) => {
+    const field = fields.find(f => f.name === fieldName);
+    if (field && field.editable) {
+      setEditingField(fieldName);
+      setTempValue(field.value);
+    }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSave = async (fieldName: string) => {
     try {
+      const updateData = { [fieldName]: tempValue };
+
       await axios.put(
         `${API_URL}/auth/update`,
-        formData,
+        updateData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -64,188 +74,111 @@ const ProfileInfo: React.FC = () => {
         }
       );
 
-      setMessage("Profile updated successfully.");
+      // Update local state
+      setFields(prevFields =>
+        prevFields.map(field =>
+          field.name === fieldName
+            ? { ...field, value: tempValue }
+            : field
+        )
+      );
+
+      setEditingField(null);
+      setTempValue("");
+      setMessage("Field updated successfully!");
+
+      // Clear message after 3 seconds
+      setTimeout(() => setMessage(""), 3000);
     } catch (error) {
-      console.error("Error updating profile:", error);
-      setMessage("Error updating profile:");
+      console.error("Error updating field:", error);
+      setMessage("Error updating field");
     }
   };
 
+  const handleCancel = () => {
+    setEditingField(null);
+    setTempValue("");
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTempValue(e.target.value);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent, fieldName: string) => {
+    if (e.key === 'Enter') {
+      handleSave(fieldName);
+    } else if (e.key === 'Escape') {
+      handleCancel();
+    }
+  };
+
+  if (!token) {
+    return <p>You are not logged in</p>;
+  }
+
   return (
     <div>
-      <div>
-        {token ? (
-          <div>
-            <h2>My profile information</h2>
-            <p>Name: {formData.name}</p>
-            <p>Email: {formData.email}</p>
-            <p>Phone Number: {formData.phone}</p>
-            <p>
-              Address:
-              {[formData.address, formData.city, formData.country].filter(Boolean).join(", ")}
-              {formData.postCode && ` (${formData.postCode})`}
-            </p>
-            <p>Role: {formData.role}</p>
+
+      {message && <p className="message">{message}</p>}
+
+      <div className="grid-2-col-form">
+        {fields.map((field) => (
+          <div key={field.name} >
+
+
+            {editingField === field.name ? (
+              // Edit mode
+              <div className="edit-mode">
+                <h5 className="">{field.label}:</h5>
+                <input
+                  type={field.type}
+                  value={tempValue}
+                  onChange={handleInputChange}
+                  onKeyDown={(e) => handleKeyPress(e, field.name)}
+                  autoFocus
+                  disabled={!field.editable}
+                />
+                <div className="edit-buttons">
+                  <button
+                    type="button"
+                    className="button-1 bt-orange"
+                    onClick={() => handleSave(field.name)}
+                  >
+                    Save
+                  </button>
+                  <button
+                    type="button"
+                    className="button-1 bt-black"
+                    onClick={handleCancel}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            ) : (
+              // Display mode
+              <div className="display-mode">
+                {field.editable && (
+                  <button
+                    type="button"
+                    className="button-edit bt-orange"
+                    onClick={() => handleEdit(field.name)}
+                  >
+                    <img 
+                      src="/img/Icons/Edit.svg" 
+                      alt="Edit" 
+                      width="16" 
+                      height="16"
+                    />
+                  </button>
+                )}
+                <h5 className="">{field.label}:</h5>
+                <span className="field-value">{field.value || "Not set"}</span>
+
+              </div>
+            )}
           </div>
-        ) : (
-          <p>You are not logged in</p>
-        )}
-      </div>
-
-
-
-
-
-      <h2>Change information</h2>
-      {message && <p>{message}</p>}
-      <form className="wrap flex gap1" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="phone"
-          placeholder="Phone Number"
-          value={formData.phone}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="address"
-          placeholder="Address"
-          value={formData.address}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="city"
-          placeholder="City"
-          value={formData.city}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="country"
-          placeholder="Country"
-          value={formData.country}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="postCode"
-          placeholder="Post Code"
-          value={formData.postCode}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="role"
-          placeholder="Role"
-          value={formData.role}
-          onChange={handleChange}
-          disabled
-        />
-        <button className="button-1 bt-orange" type="submit">
-          Save changes{" "}
-        </button>
-      </form>
-
-      <h2>Change my profile information</h2>
-
-      <div class="grid-2-col-form">
-
-        <div>
-          <button className="button-edit bt-black" type="submit">Edit</button>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        </div>
-        <div>
-          <button className="button-edit bt-black" type="submit">Edit</button>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        </div>
-        <div>
-          <button className="button-edit bt-black" type="submit">Edit</button>
-        <input
-          type="text"
-          name="phone"
-          placeholder="Phone Number"
-          value={formData.phone}
-          onChange={handleChange}
-        />
-        </div>
-        <div>
-          <button className="button-edit bt-black" type="submit">Edit</button>
-        <input
-          type="text"
-          name="address"
-          placeholder="Address"
-          value={formData.address}
-          onChange={handleChange}
-        />
-        </div>
-        <div>
-          <button className="button-edit bt-black" type="submit">Edit</button>
-        <input
-          type="text"
-          name="city"
-          placeholder="City"
-          value={formData.city}
-          onChange={handleChange}
-        />
-        </div>
-        <div>
-          <button className="button-edit bt-black" type="submit">Edit</button>
-        <input
-          type="text"
-          name="country"
-          placeholder="Country"
-          value={formData.country}
-          onChange={handleChange}
-        />
-        </div>
-        <div>
-          <button className="button-edit bt-black" type="submit">Edit</button>
-        <input
-          type="text"
-          name="postCode"
-          placeholder="Post Code"
-          value={formData.postCode}
-          onChange={handleChange}
-        />
-        </div>
-        <div>
-          <button className="button-edit bt-black" type="submit">Edit</button>
-        <input
-          type="text"
-          name="role"
-          placeholder="Role"
-          value={formData.role}
-          onChange={handleChange}
-          disabled
-        />
-        </div>
+        ))}
       </div>
     </div>
   );
