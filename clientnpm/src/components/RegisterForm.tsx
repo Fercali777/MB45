@@ -1,9 +1,14 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router";
+import { AuthContext } from "../context/AuthContext";
+import { useAlertModal } from "../hooks/useAlertModal";
+import AlertModal from "./AlertModal";
 import "./forms.css";
 import "./buttons.css";
-const API_URL = import.meta.env.VITE_API_URL;
 const RegisterForm = () => {
+  const navigate = useNavigate();
+  const { register } = useContext(AuthContext);
+  const { alertState, showSuccess, showError, hideAlert } = useAlertModal();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,7 +20,6 @@ const RegisterForm = () => {
     postCode: "",
     role: "",
   });
-  const [message, setMessage] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,19 +28,21 @@ const RegisterForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-
     try {
-      const response = await axios.post(
-        `${API_URL}/auth/register`,
-        formData
-      );
-      setMessage(response.data.message);
+      await register(formData);
+      showSuccess("Success", "User created successfully! You are now logged in.");
+      
+      // Navigate to furnitures page after successful registration
+      setTimeout(() => {
+        navigate('/furnitures');
+      }, 2000); // Wait 2 seconds for user to see the success message
     } catch (error: any) {
-      setMessage(error.response?.data?.message || "Registration error");
+      showError("Registration Error", error.message || "Registration error");
     }
   };
 
   return (
+    <>
     <form onSubmit={handleSubmit}>
       <div className="grid-2-col-form">
         <input
@@ -121,9 +127,15 @@ const RegisterForm = () => {
       <button className="button-1 bt-orange margin-b" type="submit">
         Register
       </button>
-      {message && <p>{message}</p>}
     </form>
-
+    <AlertModal
+      isOpen={alertState.isOpen}
+      onClose={hideAlert}
+      type={alertState.type}
+      title={alertState.title}
+      message={alertState.message}
+    />
+  </>
   );
 };
 

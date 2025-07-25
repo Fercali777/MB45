@@ -19,7 +19,17 @@ type AuthContextType = {
   loadingUser: boolean;
   userReady: boolean; 
   login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string, role: string) => Promise<void>;
+  register: (userData: {
+    name: string;
+    email: string;
+    password: string;
+    phone: string;
+    address: string;
+    city: string;
+    country: string;
+    postCode: string;
+    role: string;
+  }) => Promise<void>;
   logout: () => void;
   updateUser: (updatedData: Partial<AppUser>) => void;
 };
@@ -73,12 +83,22 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  const register = async (name: string, email: string, password: string, role: string) => {
+  const register = async (userData: {
+    name: string;
+    email: string;
+    password: string;
+    phone: string;
+    address: string;
+    city: string;
+    country: string;
+    postCode: string;
+    role: string;
+  }) => {
     try {
       const res = await fetch(`${API_URL}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password, role }),
+        body: JSON.stringify(userData),
       });
 
       const data = await res.json();
@@ -93,6 +113,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
       }
     } catch (err) {
       console.error("Register error:", err);
+      throw err; // Re-throw to handle in component
     }
   };
 

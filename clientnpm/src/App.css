@@ -47,6 +47,7 @@ h1 {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 64px;
   line-height: 68px;
+  margin-bottom: 32px; 
 }
 
 h2 {
@@ -73,7 +74,7 @@ h4 {
   font-weight: normal;
   font-size: 24px;
   line-height: 32px;
-  margin-block-end: 20px;
+  margin-block-end: 16px;
 }
 
 h5 {
@@ -91,6 +92,7 @@ p {
   line-height: 22px;
   margin-block-end: 40px;
   color: #59636a;
+  margin-bottom: 8px;
 }
 
 .terms {

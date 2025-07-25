@@ -13,16 +13,16 @@ router.post('/register', async (req: Request, res: Response) => {
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      res.status(409).json({ message: 'User already exists' });
+      return res.status(409).json({ message: 'User already exists' });
     }
-else {
+    else {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ name, email, password: hashedPassword, phone, address, city, country, postCode, role });
     await newUser.save();
 
     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET as string, { expiresIn: '7d' });
 
-    res.status(201).json({
+    return res.status(201).json({
       message: 'User created successfully',
       user: {
         _id: newUser._id,
@@ -37,11 +37,11 @@ else {
       },
       token,
     });
-};
+  }
 
   } catch (error) {
     console.error('Error registering user:', error);
-    res.status(500).json({ message: 'Server error' });
+    return res.status(500).json({ message: 'Server error' });
   }
 });
 
@@ -51,14 +51,18 @@ router.post('/login', async (req: Request, res: Response) => {
 
   try {
     const existingUser = await User.findOne({ email });
-    if (!existingUser) res.status(404).json({ message: 'User not found' });
-else{
+    if (!existingUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    else {
     const isMatch = await bcrypt.compare(password, existingUser.password);
-    if (!isMatch)  res.status(400).json({ message: 'Incorrect password' });
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Incorrect password' });
+    }
 
     const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET as string, { expiresIn: '7d' });
 
-    res.status(200).json({
+    return res.status(200).json({
       user: {
         _id: existingUser._id,
         name: existingUser.name,
@@ -75,7 +79,7 @@ else{
   }
   } catch (error) {
     console.error('Login error:', error);
-    res.status(500).json({ message: 'Server error' });
+    return res.status(500).json({ message: 'Server error' });
   }
 });
 
@@ -86,7 +90,7 @@ router.get('/me', async (req: Request, res: Response) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    res.status(401).json({ message: 'Token missing' });
+    return res.status(401).json({ message: 'Token missing' });
   } else {
     const token = authHeader.split(' ')[1];
 
@@ -96,25 +100,25 @@ router.get('/me', async (req: Request, res: Response) => {
       const user = await User.findById(decoded.id);
 
       if (!user) {
-        res.status(404).json({ message: 'User not found' });
+        return res.status(404).json({ message: 'User not found' });
       } else {
-res.status(200).json({
-  user: {
-    uid: user._id,
-    email: user.email,
-    name: user.name,
-    role: user.role,
-    phone: user.phone,
-    address: user.address,
-    city: user.city,
-    country: user.country,
-    postCode: user.postCode,
-  },
-});
+        return res.status(200).json({
+          user: {
+            uid: user._id,
+            email: user.email,
+            name: user.name,
+            role: user.role,
+            phone: user.phone,
+            address: user.address,
+            city: user.city,
+            country: user.country,
+            postCode: user.postCode,
+          },
+        });
       }
     } catch (error: any) {
       console.error('Token error:', error.message || error);
-      res.status(401).json({ message: 'Invalid token' });
+      return res.status(401).json({ message: 'Invalid token' });
     }
   }
 });
@@ -123,7 +127,7 @@ router.put('/update', async (req: Request, res: Response) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    res.status(401).json({ message: 'Token missing' });
+    return res.status(401).json({ message: 'Token missing' });
   } else {
     const token = authHeader.split(' ')[1];
 
@@ -134,9 +138,9 @@ router.put('/update', async (req: Request, res: Response) => {
       const updatedUser = await User.findByIdAndUpdate(decoded.id, updates, { new: true });
 
       if (!updatedUser) {
-        res.status(404).json({ message: 'User not found' });
+        return res.status(404).json({ message: 'User not found' });
       } else {
-        res.status(200).json({
+        return res.status(200).json({
           user: {
             _id: updatedUser._id,
             name: updatedUser.name,
@@ -152,7 +156,7 @@ router.put('/update', async (req: Request, res: Response) => {
       }
     } catch (err: any) {
       console.error('Update error:', err.message);
-      res.status(401).json({ message: 'Invalid token' });
+      return res.status(401).json({ message: 'Invalid token' });
     }
   }
 });

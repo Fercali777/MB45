@@ -34,12 +34,10 @@ export const ShoppingItemsList = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  if (loadingUser) return <p>Loading user...</p>;
-  if (!user) return <p>You must log in to view your shopping list.</p>;
-  if (user.role !== "buyer")
-    return <p>Only users with the buyer role can access the list.</p>;
-
   useEffect(() => {
+    // Only fetch if user is loaded and is a buyer
+    if (loadingUser || !user || user.role !== "buyer") return;
+
     const fetchItems = async () => {
       setLoading(true);
       setError(null);
@@ -70,7 +68,13 @@ export const ShoppingItemsList = () => {
     };
 
     fetchItems();
-  }, [token]);
+  }, [token, user, loadingUser]);
+
+  // Early returns after all hooks
+  if (loadingUser) return <p>Loading user...</p>;
+  if (!user) return <p>You must log in to view your shopping list.</p>;
+  if (user.role !== "buyer")
+    return <p>Only users with the buyer role can access the list.</p>;
 
   const handleRemove = async (id: string) => {
     try {
@@ -95,7 +99,7 @@ export const ShoppingItemsList = () => {
 
   return (
     <div>
-      <h1>My Shopping List</h1>
+      <h2>My Shopping List</h2>
       {items.length === 0 && <p>Your list is empty.</p>}
       <ul style={{ listStyleType: "none", padding: 0 }}>
         {items.map(({ _id, productId, quantity }) => (
