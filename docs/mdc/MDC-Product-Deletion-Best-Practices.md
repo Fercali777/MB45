@@ -87,20 +87,16 @@ PATCH /api/products/:id/restore
 
 ## 🛠️ **Scripts de Mantenimiento**
 
-### **Eliminación Permanente de Productos Antiguos**
-```typescript
-// Eliminar productos marcados como eliminados por más de 30 días
-await permanentlyDeleteOldProducts(30);
+### **Limpieza Masiva de Productos**
+```bash
+# Eliminar productos de prueba desde el panel admin
+DELETE /api/admin/products/cleanup/bulk
 ```
 
 ### **Estadísticas de Limpieza**
-```typescript
-const stats = await getDeletedProductsStats();
-// {
-//   totalDeleted: 15,
-//   recentlyDeleted: 3,
-//   totalProducts: 150
-// }
+```bash
+# Obtener estadísticas desde el panel admin
+GET /api/admin/stats
 ```
 
 ---
@@ -111,12 +107,12 @@ const stats = await getDeletedProductsStats();
 1. **Nunca eliminar directamente** en MongoDB
 2. **Usar siempre soft delete** para productos
 3. **Implementar limpieza automática** de referencias
-4. **Crear rutas de administración** para gestión
+4. **Usar el panel admin** para gestión
 
 ### **Para Administradores:**
-1. **Revisar productos eliminados** regularmente
-2. **Restaurar productos** si es necesario
-3. **Ejecutar limpieza permanente** mensualmente
+1. **Usar el panel admin** en `/admin`
+2. **Revisar productos eliminados** regularmente
+3. **Restaurar productos** si es necesario
 4. **Monitorear estadísticas** de eliminación
 
 ---

@@ -1,5 +1,8 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router';
+import { useEffect, useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router';
+import { AuthContext } from '../context/AuthContext';
+import { useAlertModal } from '../hooks/useAlertModal';
+import AlertModal from './AlertModal';
 import axiosInstance from '../services/axiosInstance';
 import AddToCartButton from './AddToCartButton';
 import FavoriteButton from './FavoriteButton';
@@ -16,15 +19,27 @@ interface Product {
 }
 
 const MyFavorites = () => {
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { alertState, showInfo, hideAlert } = useAlertModal();
   const [favorites, setFavorites] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!user) {
+      showInfo(
+        'Login Required',
+        'You need to be logged in to view your favorites. Please log in to continue.'
+      );
+      return;
+    }
     fetchFavorites();
-  }, []);
+  }, [user]);
 
   const fetchFavorites = async () => {
+    if (!user) return;
+    
     try {
       const response = await axiosInstance.get('/favorites/my-favorites');
       setFavorites(response.data.favorites);
@@ -39,6 +54,37 @@ const MyFavorites = () => {
   const handleRemoveFavorite = (productId: string) => {
     setFavorites(prev => prev.filter(product => product._id !== productId));
   };
+
+  const handleLoginRedirect = () => {
+    hideAlert();
+    navigate('/login');
+  };
+
+  // If user is not logged in, show login message
+  if (!user) {
+    return (
+      <>
+        <AlertModal
+          isOpen={alertState.isOpen}
+          onClose={handleLoginRedirect}
+          type={alertState.type}
+          title={alertState.title}
+          message={alertState.message}
+          showCloseButton={true}
+        />
+        <div className="login-required-message">
+          <h2>My Favorites</h2>
+          <p>Please log in to view your favorites.</p>
+          <button 
+            onClick={handleLoginRedirect}
+            className="button-1 bt-orange"
+          >
+            Go to Login
+          </button>
+        </div>
+      </>
+    );
+  }
 
   if (loading) return <p>Loading favorites...</p>;
   if (error) return <p>Error: {error}</p>;

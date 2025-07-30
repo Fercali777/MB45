@@ -45,7 +45,7 @@ const userSchema = new mongoose_1.Schema({
     city: { type: String, required: true },
     country: { type: String, required: true },
     postCode: { type: String, required: true },
-    role: { type: String, enum: ['seller', 'buyer'], default: 'seller', required: true },
+    role: { type: String, enum: ['seller', 'buyer', 'admin'], default: 'seller', required: true },
     favorites: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Product' }],
 });
 // Exporta el modelo tipado

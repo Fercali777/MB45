@@ -80,6 +80,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
       }
     } catch (err) {
       console.error("Login error:", err);
+      throw err; // Re-throw to handle in component
     }
   };
 

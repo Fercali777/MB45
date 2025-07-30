@@ -3,10 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.cleanupProductReferences = void 0;
 const express_1 = __importDefault(require("express"));
 const Product_1 = require("../models/Product");
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = require("../models/User");
+const ShoppingItem_1 = require("../models/ShoppingItem");
+const Comment_1 = require("../models/Comment");
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const multer_1 = __importDefault(require("multer"));
 const cloudinary_1 = require("../config/cloudinary");
 const mongoose_1 = __importDefault(require("mongoose"));
@@ -14,6 +17,22 @@ console.log(" productRoutes.ts load");
 //  Multer with Cloudinary
 const upload = (0, multer_1.default)({ storage: cloudinary_1.storage });
 const router = express_1.default.Router();
+// Función para limpiar referencias cuando se elimina un producto
+const cleanupProductReferences = async (productId) => {
+    try {
+        // Remover de favoritos de todos los usuarios
+        await User_1.User.updateMany({ favorites: productId }, { $pull: { favorites: productId } });
+        // Eliminar items del carrito que referencien este producto
+        await ShoppingItem_1.ShoppingItem.deleteMany({ productId });
+        // Eliminar comentarios del producto
+        await Comment_1.Comment.deleteMany({ productId });
+        console.log(`Cleaned up references for product ${productId}`);
+    }
+    catch (error) {
+        console.error('Error cleaning up product references:', error);
+    }
+};
+exports.cleanupProductReferences = cleanupProductReferences;
 // Tipado del controlador, ya no es necesario definir el interface MulterRequest
 const addProduct = async (req, res) => {
     console.log('Entrando a /api/products/add');
@@ -52,12 +71,18 @@ const addProduct = async (req, res) => {
 };
 // Ruta para agregar producto con una imagen
 router.post('/add', upload.single('image'), addProduct);
-// Obtener todos los productos
+// Obtener todos los productos (solo los no eliminados)
 router.get('/', async (req, res) => {
     console.log("👉 Ruta /api/products fue accedida");
     try {
-        const products = await Product_1.Product.find().populate('seller', 'name email');
-        console.log("All products available:", products); // ← esto
+        // Buscar productos que NO estén marcados como eliminados (incluye los que no tienen el campo)
+        const products = await Product_1.Product.find({
+            $or: [
+                { isDeleted: false },
+                { isDeleted: { $exists: false } }
+            ]
+        }).populate('seller', 'name email');
+        console.log("All products available:", products);
         res.status(200).json(products);
     }
     catch (error) {
@@ -65,7 +90,7 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: "Error getting products" });
     }
 });
-// Obtener producto por ID
+// Obtener producto por ID (solo si no está eliminado)
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
     console.log("ID received:", id);
@@ -75,7 +100,13 @@ router.get('/:id', async (req, res) => {
         return;
     }
     try {
-        const product = await Product_1.Product.findById(id).populate('seller', 'name email');
+        const product = await Product_1.Product.findOne({
+            _id: id,
+            $or: [
+                { isDeleted: false },
+                { isDeleted: { $exists: false } }
+            ]
+        }).populate('seller', 'name email');
         if (!product) {
             console.log("Product not found in the database");
             res.status(404).json({ message: "Product not found" });
@@ -102,26 +133,87 @@ router.get('/seller/:userId', async (req, res) => {
         res.status(500).json({ message: "Error getting products from seller" });
     }
 });
-// Eliminar producto por ID
+// Soft delete - Marcar producto como eliminado
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     if (!mongoose_1.default.Types.ObjectId.isValid(id)) {
-        res.status(400).json({ message: 'Invalid ID' });
+        return res.status(400).json({ message: "Invalid ID" });
     }
-    else {
-        try {
-            const deletedProduct = await Product_1.Product.findByIdAndDelete(id);
-            if (!deletedProduct) {
-                res.status(404).json({ message: 'Product not found' });
-            }
-            else {
-                res.status(200).json({ message: 'Product successfully removed' });
-            }
+    try {
+        const product = await Product_1.Product.findById(id);
+        if (!product) {
+            return res.status(404).json({ message: "Product not found" });
         }
-        catch (error) {
-            console.error('Error deleting product:', error);
-            res.status(500).json({ message: 'Error deleting product' });
+        // Soft delete - marcar como eliminado
+        product.isDeleted = true;
+        product.deletedAt = new Date();
+        await product.save();
+        // Llamar a la función de limpieza de referencias
+        await (0, exports.cleanupProductReferences)(id);
+        res.status(200).json({ message: "Product deleted successfully" });
+    }
+    catch (error) {
+        console.error("Error deleting product:", error);
+        res.status(500).json({ message: "Error deleting product" });
+    }
+});
+// Restaurar producto eliminado
+router.patch('/:id/restore', async (req, res) => {
+    const { id } = req.params;
+    if (!mongoose_1.default.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ message: "Invalid ID" });
+    }
+    try {
+        const product = await Product_1.Product.findById(id);
+        if (!product) {
+            return res.status(404).json({ message: "Product not found" });
         }
+        if (!product.isDeleted) {
+            return res.status(400).json({ message: "Product is not deleted" });
+        }
+        // Restaurar producto
+        product.isDeleted = false;
+        product.deletedAt = undefined;
+        await product.save();
+        res.status(200).json({ message: "Product restored successfully" });
+    }
+    catch (error) {
+        console.error("Error restoring product:", error);
+        res.status(500).json({ message: "Error restoring product" });
+    }
+});
+// Ruta administrativa - Ver productos eliminados
+router.get('/admin/deleted', async (req, res) => {
+    try {
+        const deletedProducts = await Product_1.Product.find({ isDeleted: true })
+            .populate('seller', 'name email')
+            .sort({ deletedAt: -1 });
+        res.status(200).json(deletedProducts);
+    }
+    catch (error) {
+        console.error("Error getting deleted products:", error);
+        res.status(500).json({ message: "Error getting deleted products" });
+    }
+});
+// Ruta administrativa - Estadísticas de limpieza
+router.get('/admin/stats', async (req, res) => {
+    try {
+        const totalDeleted = await Product_1.Product.countDocuments({ isDeleted: true });
+        const totalActive = await Product_1.Product.countDocuments({ isDeleted: false });
+        const recentlyDeleted = await Product_1.Product.countDocuments({
+            isDeleted: true,
+            deletedAt: { $gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) }
+        });
+        res.status(200).json({
+            totalDeleted,
+            totalActive,
+            recentlyDeleted,
+            totalProducts: totalActive + totalDeleted
+        });
+    }
+    catch (error) {
+        console.error("Error getting product stats:", error);
+        res.status(500).json({ message: "Error getting product stats" });
     }
 });
 exports.default = router;

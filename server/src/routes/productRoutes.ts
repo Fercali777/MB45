@@ -241,51 +241,5 @@ router.get('/admin/stats', async (req: Request, res: Response) => {
   }
 });
 
-// Ruta temporal para limpiar productos de prueba
-router.delete('/admin/cleanup-test', async (req: Request, res: Response) => {
-  try {
-    const { names, categories } = req.body;
-    
-    let query: any = {};
-    
-    if (names && names.length > 0) {
-      query.name = { $in: names };
-    }
-    
-    if (categories && categories.length > 0) {
-      query.category = { $in: categories };
-    }
-    
-    // Si no se especifica nada, eliminar productos con "test" en el nombre
-    if (!names && !categories) {
-      query.name = { $regex: /test/i };
-    }
-    
-    const deletedProducts = await Product.find(query);
-    
-    if (deletedProducts.length === 0) {
-      return res.status(404).json({ message: "No test products found" });
-    }
-    
-    // Soft delete de los productos encontrados
-    for (const product of deletedProducts) {
-      product.isDeleted = true;
-      product.deletedAt = new Date();
-      await product.save();
-      
-      // Limpiar referencias
-      await cleanupProductReferences(product._id.toString());
-    }
-    
-    res.status(200).json({ 
-      message: `Deleted ${deletedProducts.length} test products`,
-      deletedProducts: deletedProducts.map(p => ({ id: p._id, name: p.name }))
-    });
-  } catch (error) {
-    console.error("Error cleaning up test products:", error);
-    res.status(500).json({ message: "Error cleaning up test products" });
-  }
-});
-
 
 export default router;

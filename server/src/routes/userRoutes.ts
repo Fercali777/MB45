@@ -15,7 +15,7 @@ router.post('/register', async (req: Request, res: Response) => {
     if (existingUser) {
       return res.status(409).json({ message: 'User already exists' });
     }
-    else {
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ name, email, password: hashedPassword, phone, address, city, country, postCode, role });
     await newUser.save();
@@ -37,8 +37,6 @@ router.post('/register', async (req: Request, res: Response) => {
       },
       token,
     });
-  }
-
   } catch (error) {
     console.error('Error registering user:', error);
     return res.status(500).json({ message: 'Server error' });
@@ -54,7 +52,7 @@ router.post('/login', async (req: Request, res: Response) => {
     if (!existingUser) {
       return res.status(404).json({ message: 'User not found' });
     }
-    else {
+
     const isMatch = await bcrypt.compare(password, existingUser.password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Incorrect password' });
@@ -76,7 +74,6 @@ router.post('/login', async (req: Request, res: Response) => {
       },
       token,
     });
-  }
   } catch (error) {
     console.error('Login error:', error);
     return res.status(500).json({ message: 'Server error' });

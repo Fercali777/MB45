@@ -18,5 +18,7 @@ const productSchema = new mongoose_1.default.Schema({
     description: { type: String },
     image: { type: String, required: true },
     seller: { type: mongoose_1.default.Schema.Types.ObjectId, ref: 'User', required: true },
+    isDeleted: { type: Boolean, default: false }, // Soft delete field
+    deletedAt: { type: Date }, // When it was deleted
 }, { timestamps: true });
 exports.Product = mongoose_1.default.model('Product', productSchema);

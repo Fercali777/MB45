@@ -30,20 +30,23 @@ router.post('/add/:productId', async (req, res) => {
         // Check if product exists
         const product = await Product_1.Product.findById(productId);
         if (!product) {
-            return res.status(404).json({ message: 'Product not found' });
+            res.status(404).json({ message: 'Product not found' });
+            return;
         }
         // Check if already in favorites
         if (user.favorites.includes(productId)) {
-            return res.status(400).json({ message: 'Product already in favorites' });
+            res.status(400).json({ message: 'Product already in favorites' });
+            return;
         }
         // Add to favorites
         user.favorites.push(productId);
         await user.save();
         res.status(200).json({ message: 'Product added to favorites', favorites: user.favorites });
+        return;
     }
     catch (error) {
-        console.error('Error adding to favorites:', error);
         res.status(500).json({ message: 'Server error' });
+        return;
     }
 });
 // Remove product from favorites
@@ -55,10 +58,11 @@ router.delete('/remove/:productId', async (req, res) => {
         user.favorites = user.favorites.filter((fav) => fav.toString() !== productId);
         await user.save();
         res.status(200).json({ message: 'Product removed from favorites', favorites: user.favorites });
+        return;
     }
     catch (error) {
-        console.error('Error removing from favorites:', error);
         res.status(500).json({ message: 'Server error' });
+        return;
     }
 });
 // Get user favorites
@@ -68,13 +72,15 @@ router.get('/my-favorites', async (req, res) => {
         // Populate favorites with product details
         const populatedUser = await User_1.User.findById(user._id).populate('favorites');
         if (!populatedUser) {
-            return res.status(404).json({ message: 'User not found' });
+            res.status(404).json({ message: 'User not found' });
+            return;
         }
         res.status(200).json({ favorites: populatedUser.favorites });
+        return;
     }
     catch (error) {
-        console.error('Error getting favorites:', error);
         res.status(500).json({ message: 'Server error' });
+        return;
     }
 });
 // Check if product is in favorites
@@ -84,10 +90,11 @@ router.get('/check/:productId', async (req, res) => {
         const user = await getUserFromToken(req);
         const isFavorite = user.favorites.includes(productId);
         res.status(200).json({ isFavorite });
+        return;
     }
     catch (error) {
-        console.error('Error checking favorite status:', error);
         res.status(500).json({ message: 'Server error' });
+        return;
     }
 });
 exports.default = router;
