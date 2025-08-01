@@ -80,3 +80,7 @@ stylelintcache
 # --- Optional uploads/temp folders ---
 server/uploads/
 tmp/
+
+# --- Image folders to ignore ---
+clientnpm/public/img/Icons/
+clientnpm/public/img/Products/
