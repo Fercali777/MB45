@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../services/axiosInstance";
 import { Link } from "react-router";
 import AddToCartButton from "./AddToCartButton";
 import FavoriteButton from "./FavoriteButton";
 import "./product-list.css";
-const API_URL = import.meta.env.VITE_API_URL;
 interface Product {
   _id: string;
   name: string;
@@ -24,7 +23,7 @@ const ProductList = () => {
     const fetchProducts = async () => {
       try {
         console.log("Making the request to /api/products...");
-        const res = await axios.get(`${API_URL}/products`);
+        const res = await axiosInstance.get(`/products`);
         console.log("Products received:", res.data);
         console.log("Type of res.data:", typeof res.data);
         console.log("Is Array?", Array.isArray(res.data));
