@@ -27,7 +27,7 @@ const AuthButtons: React.FC<AuthButtonsProps> = ({
   const homeButtonClass2 = "button-1 bt-grey margin-b";
   const defaultButtonClass = "button-1 bt-orange margin-b";
   const defaultButtonClass2 = "button-1 bt-black margin-b";
-  const registerButtonClass = "button-1 bt-grey margin-b";
+  // const registerButtonClass = "button-1 bt-grey margin-b";
 
   return (
     <div className="flex gap-2">
