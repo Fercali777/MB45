@@ -23,6 +23,7 @@ app.use(cors({
   origin: [
     'https://mb-45-mongo-db-rg2t.vercel.app', 
     'https://mb-45-mongo-db7j08by7-fernando-calixtos-projects.vercel.app',
+    'https://mb-45-mongo-bs8odha01-fernando-calixtos-projects.vercel.app',
     'https://mb-45-us37.vercel.app',
     'http://localhost:5173'
   ],
