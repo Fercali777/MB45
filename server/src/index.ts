@@ -25,6 +25,8 @@ app.use(cors({
     'https://mb-45-mongo-db7j08by7-fernando-calixtos-projects.vercel.app',
     'https://mb-45-mongo-bs8odha01-fernando-calixtos-projects.vercel.app',
     'https://mb-45-us37.vercel.app',
+    'https://mb-45-f46a.vercel.app',
+    'https://mb-45-f46a-dt44p4wt4-fernando-calixtos-projects.vercel.app',
     'http://localhost:5173'
   ],
   credentials: true,
