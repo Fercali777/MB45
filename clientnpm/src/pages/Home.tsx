@@ -5,7 +5,7 @@ const slides = [
   (
           <div className="slider-contentMB flex">
             <div className="slider-textMB">
-              <h1 className="font-white">Distinction without limits</h1>
+              <h1 className="font-white">Distinction without limitss</h1>
               <hr/>
               
         <h3 className="font-white">Oslo Media Stand</h3>
