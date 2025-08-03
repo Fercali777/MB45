@@ -1,15 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config(); 
 import express, { Request, Response } from 'express';
-import mongoose from 'mongoose';
 import cors from 'cors';
-
-import userRoutes from './routes/userRoutes';
-import productRoutes from './routes/productRoutes';
-import commentRoutes from './routes/commentRoutes'; 
-import shoppingRoutes from "./routes/shoppingRoutes";
-import favoriteRoutes from "./routes/favoriteRoutes";
-import adminRoutes from "./routes/adminRoutes";
 
 const app = express();
 
@@ -32,15 +24,7 @@ app.use(cors({
   credentials: true,
 }));
 
-// Rutas
-app.use('/api/auth', userRoutes);
-app.use('/api/products', productRoutes);
-app.use('/api/comments', commentRoutes);
-app.use("/api/shopping", shoppingRoutes);
-app.use("/api/favorites", favoriteRoutes);
-app.use("/api/admin", adminRoutes);
-
-// Ruta de prueba
+// Ruta de prueba simple
 app.get('/', (req: Request, res: Response) => {
   res.send('Server Working');
 });
@@ -57,14 +41,24 @@ app.get('/api/test', (req: Request, res: Response) => {
   });
 });
 
-// Conexión con MongoDB
-mongoose.connect(process.env.MONGO_URI as string)
-  .then(() => {
-    console.log('Conectado a MongoDB Atlas');
-    app.listen(PORT, () => {
-      console.log(`Servidor corriendo en http://localhost:${PORT}`);
-    });
-  })
-  .catch((err: any) => {
-    console.error('Error al conectar con MongoDB:', err);
+// Ruta de prueba para productos
+app.get('/api/products', (req: Request, res: Response) => {
+  res.json([
+    {
+      _id: '1',
+      name: 'Test Product',
+      price: 100,
+      description: 'Test product for debugging'
+    }
+  ]);
+});
+
+// Solo iniciar el servidor si no estamos en Vercel
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
   });
+}
+
+// Exportar para Vercel
+export default app;
