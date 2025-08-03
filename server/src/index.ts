@@ -45,6 +45,18 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Server Working');
 });
 
+// Ruta de prueba para API
+app.get('/api/test', (req: Request, res: Response) => {
+  res.json({ 
+    message: 'API is working',
+    env: {
+      hasMongoUri: !!process.env.MONGO_URI,
+      hasJwtSecret: !!process.env.JWT_SECRET,
+      port: process.env.PORT
+    }
+  });
+});
+
 // Conexión con MongoDB
 mongoose.connect(process.env.MONGO_URI as string)
   .then(() => {
