@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Get API URL from environment variables
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+// Get API URL from environment variables or use relative path for single deploy
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 const axiosInstance = axios.create({
   baseURL: API_URL,

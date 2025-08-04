@@ -33,6 +33,8 @@ const allowedOrigins = [
   'https://mb-45-us37.vercel.app',
   'https://mb-45-f46a.vercel.app',
   'https://mb-45-f46a-dt44p4wt4-fernando-calixtos-projects.vercel.app',
+  'https://mb-45-mongo-db-git-main-fernando-calixtos-projects.vercel.app',
+  'https://mb-45-f46a-ixz0f4bxx-fernando-calixtos-projects.vercel.app',
   'http://localhost:5173',
   'http://localhost:3000'
 ];
@@ -52,6 +54,18 @@ app.use(cors({
 }));
 
 // Routes
+// API test route (moved to top for priority)
+app.get('/api/test', (req: Request, res: Response) => {
+  res.json({ 
+    message: 'API is working',
+    env: {
+      hasMongoUri: !!process.env.MONGO_URI,
+      hasJwtSecret: !!process.env.JWT_SECRET,
+      port: process.env.PORT
+    }
+  });
+});
+
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/admin', adminRoutes);
@@ -62,18 +76,6 @@ app.use('/api/shopping', shoppingRoutes);
 // Health check route
 app.get('/', (req: Request, res: Response) => {
   res.send('MB45 Furniture API is running');
-});
-
-// API test route
-app.get('/api/test', (req: Request, res: Response) => {
-  res.json({ 
-    message: 'API is working',
-    env: {
-      hasMongoUri: !!process.env.MONGO_URI,
-      hasJwtSecret: !!process.env.JWT_SECRET,
-      port: process.env.PORT
-    }
-  });
 });
 
 // Error handling middleware

@@ -37,45 +37,94 @@ export const cleanupProductReferences = async (productId: string) => {
 // Tipado del controlador, ya no es necesario definir el interface MulterRequest
 const addProduct = async (req: Request, res: Response): Promise<void> => {
   console.log('Entrando a /api/products/add');
+  console.log('Headers:', req.headers);
+  console.log('Body:', req.body);
+  console.log('File:', req.file);
 
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    res.status(401).json({ message: 'Token missing' });
-    return;
-  }
-
-  const token = authHeader.split(' ')[1];
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
-    console.log('Decoded token:', decoded);
+    // Verificar autenticación
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      console.log('Token missing or invalid format');
+      res.status(401).json({ message: 'Token missing' });
+      return;
+    }
 
+    const token = authHeader.split(' ')[1];
+    console.log('Token received:', token ? 'Token present' : 'No token');
+
+    // Verificar JWT
+    let decoded;
+    try {
+      decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
+      console.log('Token decoded successfully:', decoded);
+    } catch (jwtError) {
+      console.error('JWT verification failed:', jwtError);
+      res.status(401).json({ message: 'Invalid token' });
+      return;
+    }
+
+    // Buscar usuario
     const user = await User.findById(decoded.id);
     if (!user) {
+      console.log('User not found for ID:', decoded.id);
       res.status(404).json({ message: 'User not found' });
       return;
     }
 
-    console.log('User found:', user);
+    console.log('User found:', { id: user._id, name: user.name, role: user.role });
 
-    console.log('req.file:', req.file);
-    console.log('req.body:', req.body);
+    // Verificar que el usuario sea seller o admin
+    if (user.role !== 'seller' && user.role !== 'admin') {
+      console.log('User role not authorized:', user.role);
+      res.status(403).json({ message: 'Only sellers and admins can add products' });
+      return;
+    }
 
-    const imageUrl = req.file?.path;
+    // Preparar datos del producto
+    const imageUrl = req.file?.path || req.body.image;
+    console.log('Image URL:', imageUrl);
+
     const productData = {
-      ...req.body,
+      name: req.body.name,
+      category: req.body.category,
+      price: Number(req.body.price),
+      stock: Number(req.body.stock),
+      mainMaterial: req.body.mainMaterial,
+      color: req.body.color,
+      width: req.body.width ? Number(req.body.width) : undefined,
+      height: req.body.height ? Number(req.body.height) : undefined,
+      depth: req.body.depth ? Number(req.body.depth) : undefined,
+      description: req.body.description,
       image: imageUrl,
       seller: user._id,
     };
 
     console.log('Product data to save:', productData);
 
+    // Validar datos requeridos
+    if (!productData.name || !productData.category || !productData.price || !productData.stock) {
+      console.log('Missing required fields');
+      res.status(400).json({ message: 'Missing required fields' });
+      return;
+    }
+
+    // Crear y guardar producto
     const newProduct = new Product(productData);
     await newProduct.save();
 
-    res.status(201).json({ message: 'Product added successfully', product: newProduct });
+    console.log('Product saved successfully:', newProduct._id);
+
+    res.status(201).json({ 
+      message: 'Product added successfully', 
+      product: newProduct 
+    });
   } catch (error) {
     console.error('Error en /add:', error);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ 
+      message: 'Server error', 
+      error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'
+    });
   }
 };
 
