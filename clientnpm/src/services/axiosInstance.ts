@@ -1,11 +1,14 @@
 import axios from 'axios';
 
+// Get API URL from environment variables
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true, // Útil si usas cookies/sesiones
+  withCredentials: true,
 });
 
 // Interceptor para agregar el token automáticamente
@@ -17,5 +20,14 @@ axiosInstance.interceptors.request.use((config) => {
   }
   return config;
 });
+
+// Response interceptor for error handling
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error('API Error:', error);
+    return Promise.reject(error);
+  }
+);
 
 export default axiosInstance;
