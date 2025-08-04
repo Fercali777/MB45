@@ -5,7 +5,7 @@ const slides = [
   (
           <div className="slider-contentMB flex">
             <div className="slider-textMB">
-              <h1 className="font-white">Distinction without limits - MONOREPO TEST!</h1>
+              <h1 className="font-white">Distinction without limits</h1>
               <hr/>
               
         <h3 className="font-white">Oslo Media Stand</h3>
@@ -18,10 +18,10 @@ const slides = [
   (
     <div className="slider-contentMB flex">
       <div className="slider-textMB">
-        <h1 className="font-white">The Soul of the Table</h1>
+        <h1 className="font-white">Scandinavian Oak Lounge</h1>
         <hr/>
-        <h3 className="font-white">Kyoto Dining Table</h3>
-        <p className="font-white">Minimalist dining table inspired by Japanese design, made of rich walnut wood with a matte finish.</p>
+        <h3 className="font-white">Oslo Lounge Chair</h3>
+        <p className="font-white">A Scandinavian-inspired lounge chair crafted from solid oak with forest green linen cushions.</p>
         <a href="/products/68335748d886a4f7f4fff2a4" className="button-1 bt-black" title="Product Details">SEE MORE</a>
             </div>
       <img className="product-picture-sliderMB" alt="Stockholm Sofa" src="https://res.cloudinary.com/deqsrgxeu/image/upload/v1748195142/getqzoadjnphp8g3u0nn.png" />
