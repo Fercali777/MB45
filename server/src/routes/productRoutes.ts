@@ -123,7 +123,7 @@ const addProduct = async (req: Request, res: Response): Promise<void> => {
     console.error('Error en /add:', error);
     res.status(500).json({ 
       message: 'Server error', 
-      error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'
+      error: process.env.NODE_ENV === 'development' ? (error instanceof Error ? error.message : 'Unknown error') : 'Internal server error'
     });
   }
 };
