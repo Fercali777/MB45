@@ -67,6 +67,7 @@ app.get('/api/test', (req: Request, res: Response) => {
 });
 
 app.use('/api/users', userRoutes);
+app.use('/api/auth', userRoutes); // Alias for backward compatibility
 app.use('/api/products', productRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/comments', commentRoutes);
