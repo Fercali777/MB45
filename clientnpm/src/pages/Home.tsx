@@ -13,7 +13,7 @@ const slides = [
         <a href="/products/683350fc3ddcd2a82d2c1cb3" className="button-1 bt-black" title="Product Details">SEE MORE</a>
       </div>
       <img className="product-picture-sliderMB" alt="Furniture Melodic Nest" src="https://res.cloudinary.com/deqsrgxeu/image/upload/v1748193530/yrfxl2ggukafyfihbwvi.png" />
-    </div>
+    </div> 
   ),
   (
     <div className="slider-contentMB flex">
