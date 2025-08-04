@@ -12,7 +12,8 @@
       "src": "server/src/index.ts",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": ["server/src/**"]
+        "includeFiles": ["server/src/**"],
+        "maxDuration": 30
       }
     }
   ],
@@ -25,10 +26,5 @@
       "src": "/(.*)",
       "dest": "/clientnpm/$1"
     }
-  ],
-  "functions": {
-    "server/src/index.ts": {
-      "maxDuration": 30
-    }
-  }
+  ]
 } 
