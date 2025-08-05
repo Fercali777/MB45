@@ -68,7 +68,7 @@ const handleChange = (
       showSuccess("Success", "Product added successfully");
     } catch (error: any) {
       console.error(error);
-      alert(error.response?.data?.message || "Error adding product");
+      showError("Error", error.response?.data?.message || "Error adding product");
     }
   };
 
