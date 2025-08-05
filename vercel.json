@@ -28,7 +28,7 @@
     },
     {
       "src": "/img/(.*)",
-      "dest": "/clientnpm/public/img/$1"
+      "dest": "/clientnpm/dist/img/$1"
     },
     {
       "src": "/(.*)",

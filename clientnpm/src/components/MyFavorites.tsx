@@ -19,7 +19,7 @@ interface Product {
 }
 
 const MyFavorites = () => {
-  const { user } = useContext(AuthContext);
+  const { user, userReady } = useContext(AuthContext);
   const navigate = useNavigate();
   const { alertState, showInfo, hideAlert } = useAlertModal();
   const [favorites, setFavorites] = useState<Product[]>([]);
@@ -29,6 +29,12 @@ const MyFavorites = () => {
   useEffect(() => {
     console.log('🔍 MyFavorites - User state:', user);
     console.log('🔍 MyFavorites - User exists:', !!user);
+    console.log('🔍 MyFavorites - User ready:', userReady);
+    
+    if (!userReady) {
+      console.log('⏳ MyFavorites - User not ready yet, waiting...');
+      return;
+    }
     
     if (!user) {
       console.log('❌ MyFavorites - No user found, showing login message');
@@ -41,7 +47,7 @@ const MyFavorites = () => {
     
     console.log('✅ MyFavorites - User found, fetching favorites');
     fetchFavorites();
-  }, [user]);
+  }, [user, userReady]);
 
   const fetchFavorites = async () => {
     if (!user) return;
