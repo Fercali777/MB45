@@ -3,6 +3,7 @@ dotenv.config();
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import path from 'path';
 
 // Import routes
 import userRoutes from './routes/userRoutes';
@@ -88,7 +89,33 @@ app.get('*', (req: Request, res: Response) => {
   // Only handle non-API routes
   if (!req.path.startsWith('/api/')) {
     try {
-      res.sendFile('index.html', { root: './clientnpm/dist' });
+      // Try different possible paths for index.html
+      const possiblePaths = [
+        path.join(__dirname, '../clientnpm/dist/index.html'),
+        path.join(__dirname, '../../clientnpm/dist/index.html'),
+        path.join(__dirname, './clientnpm/dist/index.html'),
+        path.join(process.cwd(), 'clientnpm/dist/index.html')
+      ];
+      
+      console.log('Attempting to serve index.html for path:', req.path);
+      console.log('Possible paths:', possiblePaths);
+      
+      // Try each path until one works
+      for (const filePath of possiblePaths) {
+        try {
+          res.sendFile(filePath);
+          console.log('Successfully served from:', filePath);
+          return;
+        } catch (err) {
+          console.log('Failed to serve from:', filePath);
+        }
+      }
+      
+      // If all paths fail, send error
+      res.status(500).json({ 
+        message: 'Error serving SPA - index.html not found',
+        attemptedPaths: possiblePaths
+      });
     } catch (error) {
       console.error('Error serving index.html:', error);
       res.status(500).json({ message: 'Error serving SPA' });
