@@ -19,20 +19,33 @@ router.get('/', async (req: Request, res: Response) => {
 
 //  Registro
 router.post('/register', async (req: Request, res: Response) => {
+  console.log('🔍 Register route called');
+  console.log('📝 Request body:', req.body);
+  console.log('🔑 JWT_SECRET exists:', !!process.env.JWT_SECRET);
+  console.log('🗄️ MONGO_URI exists:', !!process.env.MONGO_URI);
+  
   const { name, email, password, phone, address, city, country, postCode, role } = req.body;
 
   try {
+    console.log('🔍 Checking for existing user...');
     const existingUser = await User.findOne({ email });
     if (existingUser) {
+      console.log('❌ User already exists');
       return res.status(409).json({ message: 'User already exists' });
     }
 
+    console.log('🔐 Hashing password...');
     const hashedPassword = await bcrypt.hash(password, 10);
+    
+    console.log('👤 Creating new user...');
     const newUser = new User({ name, email, password: hashedPassword, phone, address, city, country, postCode, role });
     await newUser.save();
+    console.log('✅ User saved successfully');
 
+    console.log('🎫 Generating JWT token...');
     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET as string, { expiresIn: '7d' });
 
+    console.log('🎉 Registration successful');
     return res.status(201).json({
       message: 'User created successfully',
       user: {
@@ -49,8 +62,16 @@ router.post('/register', async (req: Request, res: Response) => {
       token,
     });
   } catch (error) {
-    console.error('Error registering user:', error);
-    return res.status(500).json({ message: 'Server error' });
+    console.error('❌ Error registering user:', error);
+    console.error('🔍 Error details:', {
+      name: error.name,
+      message: error.message,
+      stack: error.stack
+    });
+    return res.status(500).json({ 
+      message: 'Server error',
+      error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'
+    });
   }
 });
 
