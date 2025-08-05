@@ -35,6 +35,10 @@ const allowedOrigins = [
   'https://mb-45-f46a-dt44p4wt4-fernando-calixtos-projects.vercel.app',
   'https://mb-45-mongo-db-git-main-fernando-calixtos-projects.vercel.app',
   'https://mb-45-f46a-ixz0f4bxx-fernando-calixtos-projects.vercel.app',
+  'https://mb-45-f46a-cn462ak14-fernando-calixtos-projects.vercel.app',
+  'https://mb-45-f46a-au3rl72cz-fernando-calixtos-projects.vercel.app',
+  'https://mb-45-f46a-p8nn0kxy6-fernando-calixtos-projects.vercel.app',
+  'https://mb-45-f46a-rdmoqdlcf-fernando-calixtos-projects.vercel.app',
   'http://localhost:5173',
   'http://localhost:3000'
 ];
