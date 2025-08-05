@@ -83,11 +83,6 @@ app.use('/api/comments', commentRoutes);
 app.use('/api/favorites', favoriteRoutes);
 app.use('/api/shopping', shoppingRoutes);
 
-// Health check route
-app.get('/', (req: Request, res: Response) => {
-  res.send('MB45 Furniture API is running');
-});
-
 // SPA fallback - serve index.html for all non-API routes
 app.get('*', (req: Request, res: Response) => {
   // Only handle non-API routes
