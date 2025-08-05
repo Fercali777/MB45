@@ -22,11 +22,13 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        console.log("Making the request to /api/products...");
+        console.log("🔍 Making the request to /api/products...");
+        console.log("📡 API_URL:", import.meta.env.VITE_API_URL);
+        console.log("🌐 Full URL:", `${import.meta.env.VITE_API_URL || '/api'}/products`);
         const res = await axiosInstance.get(`/products`);
-        console.log("Products received:", res.data);
-        console.log("Type of res.data:", typeof res.data);
-        console.log("Is Array?", Array.isArray(res.data));
+        console.log("✅ Products received:", res.data);
+        console.log("📊 Type of res.data:", typeof res.data);
+        console.log("📋 Is Array?", Array.isArray(res.data));
         
         // Verificar que res.data sea un array
         if (Array.isArray(res.data)) {
