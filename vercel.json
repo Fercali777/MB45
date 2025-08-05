@@ -40,7 +40,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/clientnpm/dist/index.html"
+      "dest": "/clientnpm/dist/$1"
     }
   ]
 } 
