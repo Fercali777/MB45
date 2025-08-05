@@ -23,6 +23,14 @@
       "dest": "/server/src/index.ts"
     },
     {
+      "src": "/assets/(.*)",
+      "dest": "/clientnpm/assets/$1"
+    },
+    {
+      "src": "/img/(.*)",
+      "dest": "/clientnpm/img/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "/clientnpm/index.html"
     }
