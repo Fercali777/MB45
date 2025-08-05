@@ -23,16 +23,8 @@
       "destination": "/server/src/index.ts"
     },
     {
-      "source": "/assets/(.*)",
-      "destination": "/clientnpm/dist/assets/$1"
-    },
-    {
-      "source": "/img/(.*)",
-      "destination": "/clientnpm/dist/img/$1"
-    },
-    {
       "source": "/(.*)",
-      "destination": "/server/src/index.ts"
+      "destination": "/clientnpm/$1"
     }
   ]
 } 
