@@ -39,6 +39,10 @@
       "destination": "/clientnpm/dist/vite.svg"
     },
     {
+      "source": "/favicon.ico",
+      "destination": "/clientnpm/dist/favicon.svg"
+    },
+    {
       "source": "/(.*)",
       "destination": "/server/src/index.ts"
     }
