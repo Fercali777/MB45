@@ -7,7 +7,7 @@ import "./forms.css";
 const API_URL = import.meta.env.VITE_API_URL;
 const ProductForm = () => {
   const { token } = useContext(AuthContext);
-  const { alertState, showSuccess, hideAlert } = useAlertModal();
+  const { alertState, showSuccess, showError, hideAlert } = useAlertModal();
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null); // Para la vista previa de la imagen
   const [formData, setFormData] = useState({
