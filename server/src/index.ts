@@ -87,7 +87,12 @@ app.use('/api/shopping', shoppingRoutes);
 app.get('*', (req: Request, res: Response) => {
   // Only handle non-API routes
   if (!req.path.startsWith('/api/')) {
-    res.sendFile('index.html', { root: '../clientnpm/dist' });
+    try {
+      res.sendFile('index.html', { root: './clientnpm/dist' });
+    } catch (error) {
+      console.error('Error serving index.html:', error);
+      res.status(500).json({ message: 'Error serving SPA' });
+    }
   }
 });
 
