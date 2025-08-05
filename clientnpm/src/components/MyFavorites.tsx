@@ -73,7 +73,13 @@ const MyFavorites = () => {
   };
 
   // If user is not logged in, show login message
+  if (!userReady) {
+    console.log('⏳ MyFavorites - Still loading user...');
+    return <p>Loading...</p>;
+  }
+  
   if (!user) {
+    console.log('❌ MyFavorites - No user found after ready check');
     return (
       <>
         <AlertModal
