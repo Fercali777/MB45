@@ -24,7 +24,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/clientnpm/$1"
+      "dest": "/clientnpm/index.html"
     }
   ]
 } 
