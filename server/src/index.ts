@@ -48,9 +48,14 @@ app.use(cors({
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
-    if (allowedOrigins.indexOf(origin) !== -1) {
+    // Allow any Vercel domain for this project
+    if (origin.includes('mb-45-f46a') || 
+        origin.includes('mb-45-mongo-db') || 
+        origin.includes('mb-45-us37') ||
+        origin.includes('localhost')) {
       callback(null, true);
     } else {
+      console.log('CORS blocked origin:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
