@@ -27,13 +27,19 @@ const MyFavorites = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    console.log('🔍 MyFavorites - User state:', user);
+    console.log('🔍 MyFavorites - User exists:', !!user);
+    
     if (!user) {
+      console.log('❌ MyFavorites - No user found, showing login message');
       showInfo(
         'Login Required',
         'You need to be logged in to view your favorites. Please log in to continue.'
       );
       return;
     }
+    
+    console.log('✅ MyFavorites - User found, fetching favorites');
     fetchFavorites();
   }, [user]);
 

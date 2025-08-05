@@ -26,7 +26,7 @@ const MyStore = () => {
     const fetchProducts = async () => {
       try {
         const res = await axios.get(
-          `${API_URL}products/seller/${user._id}`,
+          `${API_URL}/products/seller/${user._id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -57,7 +57,7 @@ const MyStore = () => {
     if (!confirm) return;
 
     try {
-      await axios.delete(`${API_URL}products/${productId}`, {
+      await axios.delete(`${API_URL}/products/${productId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
