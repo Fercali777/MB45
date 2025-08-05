@@ -23,8 +23,24 @@
       "destination": "/server/src/index.ts"
     },
     {
+      "source": "/assets/(.*)",
+      "destination": "/clientnpm/dist/assets/$1"
+    },
+    {
+      "source": "/img/(.*)",
+      "destination": "/clientnpm/dist/img/$1"
+    },
+    {
+      "source": "/favicon.svg",
+      "destination": "/clientnpm/dist/favicon.svg"
+    },
+    {
+      "source": "/vite.svg",
+      "destination": "/clientnpm/dist/vite.svg"
+    },
+    {
       "source": "/(.*)",
-      "destination": "/clientnpm/$1"
+      "destination": "/server/src/index.ts"
     }
   ]
 } 
