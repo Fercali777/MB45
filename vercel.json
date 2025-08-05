@@ -23,12 +23,8 @@
       "destination": "/server/src/index.ts"
     },
     {
-      "source": "/assets/(.*)",
-      "destination": "/clientnpm/dist/assets/$1"
-    },
-    {
-      "source": "/img/(.*)",
-      "destination": "/clientnpm/dist/img/$1"
+      "source": "/favicon.ico",
+      "destination": "/clientnpm/dist/favicon.svg"
     },
     {
       "source": "/favicon.svg",
@@ -39,8 +35,12 @@
       "destination": "/clientnpm/dist/vite.svg"
     },
     {
-      "source": "/favicon.ico",
-      "destination": "/clientnpm/dist/favicon.svg"
+      "source": "/assets/(.*)",
+      "destination": "/clientnpm/dist/assets/$1"
+    },
+    {
+      "source": "/img/(.*)",
+      "destination": "/clientnpm/dist/img/$1"
     },
     {
       "source": "/(.*)",
