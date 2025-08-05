@@ -64,13 +64,13 @@ router.post('/register', async (req: Request, res: Response) => {
   } catch (error) {
     console.error('❌ Error registering user:', error);
     console.error('🔍 Error details:', {
-      name: error.name,
-      message: error.message,
-      stack: error.stack
+      name: error instanceof Error ? error.name : 'Unknown',
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : 'No stack trace'
     });
     return res.status(500).json({ 
       message: 'Server error',
-      error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'
+      error: process.env.NODE_ENV === 'development' ? (error instanceof Error ? error.message : 'Unknown error') : 'Internal server error'
     });
   }
 });
