@@ -88,6 +88,14 @@ app.get('/', (req: Request, res: Response) => {
   res.send('MB45 Furniture API is running');
 });
 
+// SPA fallback - serve index.html for all non-API routes
+app.get('*', (req: Request, res: Response) => {
+  // Only handle non-API routes
+  if (!req.path.startsWith('/api/')) {
+    res.sendFile('index.html', { root: '../clientnpm/dist' });
+  }
+});
+
 // Error handling middleware
 app.use((err: any, req: Request, res: Response, next: any) => {
   console.error(err.stack);
